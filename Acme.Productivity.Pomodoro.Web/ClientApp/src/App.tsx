@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Route } from 'react-router';
 import Layout from './components/Layout';
 import Home from './components/Home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
 import Login from "./components/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { I18nextProvider } from "react-i18next";
@@ -17,8 +15,6 @@ export default () => (
             <Route path='/login' component={Login}/>
 
             <PrivateRoute exact path='/' component={Home}/>
-            <PrivateRoute path='/counter' component={Counter}/>
-            <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData}/>
         </Layout>
     </I18nextProvider>
 );

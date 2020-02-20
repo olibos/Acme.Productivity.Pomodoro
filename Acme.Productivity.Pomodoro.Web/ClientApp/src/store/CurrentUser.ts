@@ -36,7 +36,7 @@ export type KnownAction = AuthenticateUser | UserAuthenticated | UserDisconnecte
 export const actionCreators = {
     login: (username: string): AppThunkAction<KnownAction> => (dispatch, getState) =>
     {
-        // const appState = getState();
+        const appState = getState();
         dispatch({
             type: "USER_AUTHENTICATED",
             username: "plop",
