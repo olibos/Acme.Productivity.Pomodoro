@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router";
 import * as React from "react";
 import { connect } from "react-redux";
 import { ApplicationState } from "../store";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 
 type LoginProps =
     CurrentUserStore.UserState &
@@ -14,27 +14,31 @@ class Login extends React.PureComponent<LoginProps>
 {
     private login()
     {
-
+        this.props.login("toto");
     }
 
     public render()
     {
         return <>
-            <Form>
-                <FormGroup controlId="formBasicEmail">
-                    <Label>Email address</Label>
-                    <Input type="email" placeholder="Enter email" />
-                </FormGroup>
+            <Row className="justify-content-center">
+                <Col xs={12} md={6}>
+                    <Form onSubmit={this.login.bind(this)}>
+                        <FormGroup controlId="formBasicEmail">
+                            <Label>Email address</Label>
+                            <Input type="email" placeholder="Enter email" />
+                        </FormGroup>
 
-                <FormGroup controlId="formBasicEmail">
-                    <Label>Email address</Label>
-                    <Input type="password" />
-                </FormGroup>
+                        <FormGroup controlId="formBasicEmail">
+                            <Label>Email address</Label>
+                            <Input type="password" />
+                        </FormGroup>
 
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
+                        <Button variant="primary" type="submit" onClick={this.login.bind(this)}>
+                            Submit
+                        </Button>
+                    </Form>
+                </Col>
+            </Row>
         </>;
     }
 }

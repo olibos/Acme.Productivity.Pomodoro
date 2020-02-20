@@ -5,12 +5,16 @@ import './NavMenu.css';
 import * as CurrentUserStore from "../store/CurrentUser";
 import { connect } from "react-redux";
 import { ApplicationState } from "../store";
+import { Trans } from "react-i18next";
+import { Security } from "../utils/Security";
 
 type NavMenuProps = CurrentUserStore.UserState &
     typeof CurrentUserStore.actionCreators;
 
 class NavMenu extends React.PureComponent<NavMenuProps, { isOpen: boolean }>
 {
+
+
     public state = {
         isOpen: false,
     };
@@ -21,22 +25,21 @@ class NavMenu extends React.PureComponent<NavMenuProps, { isOpen: boolean }>
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
                     <Container>
-                        <NavbarBrand tag={Link} to="/">Pomodoro Connect !</NavbarBrand>
+                        <NavbarBrand tag={Link} to="/">
+                            <Trans>Title</Trans>
+                        </NavbarBrand>
                         <NavbarToggler onClick={this.toggle} className="mr-2"/>
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                    <NavLink tag={Link} className="text-dark" to="/"><Trans>Home</Trans></NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} onClick={() => this.props.logout()}>Se déconnecter</NavLink>
-                                </NavItem>
+
+                                {Security.isLogged() &&
+                                    <NavItem>
+                                        <NavLink tag={Link} onClick={() => this.props.logout()}><Trans>Logout</Trans></NavLink>
+                                    </NavItem>
+                                }
                             </ul>
                         </Collapse>
                     </Container>

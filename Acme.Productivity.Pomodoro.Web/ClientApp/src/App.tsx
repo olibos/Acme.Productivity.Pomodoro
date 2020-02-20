@@ -6,15 +6,19 @@ import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import Login from "./components/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
 
-import './custom.css'
+import './custom.css';
 
 export default () => (
-    <Layout>
-        <Route path='/login' component={Login} />
+    <I18nextProvider i18n={i18n}>
+        <Layout>
+            <Route path='/login' component={Login}/>
 
-        <PrivateRoute exact path='/' component={Home} />
-        <PrivateRoute path='/counter' component={Counter} />
-        <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData} />
-    </Layout>
+            <PrivateRoute exact path='/' component={Home}/>
+            <PrivateRoute path='/counter' component={Counter}/>
+            <PrivateRoute path='/fetch-data/:startDateIndex?' component={FetchData}/>
+        </Layout>
+    </I18nextProvider>
 );
