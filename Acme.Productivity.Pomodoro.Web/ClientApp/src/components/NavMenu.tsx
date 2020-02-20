@@ -2,13 +2,21 @@ import * as React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import * as CurrentUserStore from "../store/CurrentUser";
+import { connect } from "react-redux";
+import { ApplicationState } from "../store";
 
-export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }> {
+type NavMenuProps = CurrentUserStore.UserState &
+    typeof CurrentUserStore.actionCreators;
+
+class NavMenu extends React.PureComponent<NavMenuProps, { isOpen: boolean }>
+{
     public state = {
-        isOpen: false
+        isOpen: false,
     };
 
-    public render() {
+    public render()
+    {
         return (
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
@@ -26,6 +34,9 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                                 </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} onClick={() => this.props.logout()}>Se déconnecter</NavLink>
+                                </NavItem>
                             </ul>
                         </Collapse>
                     </Container>
@@ -34,9 +45,15 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
         );
     }
 
-    private toggle = () => {
+    private toggle = () =>
+    {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
         });
-    }
+    };
 }
+
+export default connect(
+    (state: ApplicationState) => state.currentUser,
+    CurrentUserStore.actionCreators
+)(NavMenu as any);

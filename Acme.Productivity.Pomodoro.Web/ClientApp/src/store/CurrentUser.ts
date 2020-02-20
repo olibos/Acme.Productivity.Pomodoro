@@ -24,8 +24,13 @@ export interface UserAuthenticated
     bearer: string
 }
 
+export interface UserDisconnected
+{
+    type: 'USER_DISCONNECTED',
+}
+
 // Group all known actions
-export type KnownAction = AuthenticateUser | UserAuthenticated;
+export type KnownAction = AuthenticateUser | UserAuthenticated | UserDisconnected;
 
 // Export the actions to be used in components.
 export const actionCreators = {
@@ -40,6 +45,11 @@ export const actionCreators = {
         Security.saveToken("plip");
         history.push("/");
     },
+    logout: (): AppThunkAction<KnownAction> => (dispatch) => {
+        Security.logout();
+        history.push("/login");
+        dispatch({type: "USER_DISCONNECTED"});
+    }
 };
 
 // Default state and reducer to change the state when action is done
@@ -61,6 +71,8 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
                 username: action.username,
                 bearer: action.bearer,
             };
+        case "USER_DISCONNECTED":
+            return unloadedState;
     }
 
     return state;
