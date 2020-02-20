@@ -7,7 +7,6 @@ import { history } from "../index";
 export interface UserState
 {
     username: string | null;
-    bearer: string | null;
     isConnected: boolean;
 }
 
@@ -22,7 +21,6 @@ export interface UserAuthenticated
 {
     type: 'USER_AUTHENTICATED',
     username: string,
-    bearer: string
 }
 
 export interface UserDisconnected
@@ -40,8 +38,7 @@ export const actionCreators = {
         const appState = getState();
         dispatch({
             type: "USER_AUTHENTICATED",
-            username: "plop",
-            bearer: "plip",
+            username: username,
         });
         Security.saveToken("plip");
         history.push("/");
@@ -57,8 +54,7 @@ export const actionCreators = {
         {
             dispatch({
                 type: "USER_AUTHENTICATED",
-                username: "plop",
-                bearer: "plip",
+                username: "TODO",
             });
         }
         else
@@ -71,7 +67,7 @@ export const actionCreators = {
 };
 
 // Default state and reducer to change the state when action is done
-const unloadedState: UserState = {username: null, bearer: null, isConnected: false};
+const unloadedState: UserState = {username: null, isConnected: false};
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState =>
 {
@@ -87,7 +83,6 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
         case "USER_AUTHENTICATED":
             return {
                 username: action.username,
-                bearer: action.bearer,
                 isConnected: true
             };
         case "USER_DISCONNECTED":
