@@ -50,7 +50,24 @@ export const actionCreators = {
         Security.logout();
         history.push("/login");
         dispatch({type: "USER_DISCONNECTED"});
-    }
+    },
+    recoverSession: () : AppThunkAction<KnownAction> => (dispatch) =>
+    {
+        if (Security.isLogged())
+        {
+            dispatch({
+                type: "USER_AUTHENTICATED",
+                username: "plop",
+                bearer: "plip",
+            });
+        }
+        else
+        {
+            Security.logout();
+            history.push("/login");
+            dispatch({type: "USER_DISCONNECTED"});
+        }
+    },
 };
 
 // Default state and reducer to change the state when action is done
