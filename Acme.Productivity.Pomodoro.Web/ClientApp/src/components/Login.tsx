@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router";
 import * as React from "react";
 import { connect } from "react-redux";
 import { ApplicationState } from "../store";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 type LoginProps =
     CurrentUserStore.UserState &
@@ -11,11 +12,30 @@ type LoginProps =
 
 class Login extends React.PureComponent<LoginProps>
 {
+    private login()
+    {
+
+    }
+
     public render()
     {
-        return <button onClick={() => this.props.login("toto")}>
-            Se connecter !
-        </button>;
+        return <>
+            <Form>
+                <FormGroup controlId="formBasicEmail">
+                    <Label>Email address</Label>
+                    <Input type="email" placeholder="Enter email" />
+                </FormGroup>
+
+                <FormGroup controlId="formBasicEmail">
+                    <Label>Email address</Label>
+                    <Input type="password" />
+                </FormGroup>
+
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
+        </>;
     }
 }
 
