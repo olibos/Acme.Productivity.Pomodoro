@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
 import { ApplicationState, reducers } from './';
+import { reducer as formReducer } from 'redux-form';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
     const middleware = [
@@ -12,6 +13,7 @@ export default function configureStore(history: History, initialState?: Applicat
 
     const rootReducer = combineReducers({
         ...reducers,
+        form: formReducer,
         router: connectRouter(history)
     });
 

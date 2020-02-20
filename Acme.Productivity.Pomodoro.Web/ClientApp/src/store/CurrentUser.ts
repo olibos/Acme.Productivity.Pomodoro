@@ -8,6 +8,7 @@ export interface UserState
 {
     username: string | null;
     bearer: string | null;
+    isConnected: boolean;
 }
 
 // Interface for all actions
@@ -53,7 +54,7 @@ export const actionCreators = {
 };
 
 // Default state and reducer to change the state when action is done
-const unloadedState: UserState = {username: null, bearer: null};
+const unloadedState: UserState = {username: null, bearer: null, isConnected: false};
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState =>
 {
@@ -70,6 +71,7 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
             return {
                 username: action.username,
                 bearer: action.bearer,
+                isConnected: true
             };
         case "USER_DISCONNECTED":
             return unloadedState;

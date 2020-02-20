@@ -6,15 +6,12 @@ import * as CurrentUserStore from "../store/CurrentUser";
 import { connect } from "react-redux";
 import { ApplicationState } from "../store";
 import { Trans } from "react-i18next";
-import { Security } from "../utils/Security";
 
 type NavMenuProps = CurrentUserStore.UserState &
     typeof CurrentUserStore.actionCreators;
 
 class NavMenu extends React.PureComponent<NavMenuProps, { isOpen: boolean }>
 {
-
-
     public state = {
         isOpen: false,
     };
@@ -35,9 +32,9 @@ class NavMenu extends React.PureComponent<NavMenuProps, { isOpen: boolean }>
                                     <NavLink tag={Link} className="text-dark" to="/"><Trans>Home</Trans></NavLink>
                                 </NavItem>
 
-                                {Security.isLogged() &&
+                                {this.props.isConnected &&
                                     <NavItem>
-                                        <NavLink tag={Link} onClick={() => this.props.logout()}><Trans>Logout</Trans></NavLink>
+                                        <NavLink href="#" onClick={() => this.props.logout()}><Trans>Logout</Trans></NavLink>
                                     </NavItem>
                                 }
                             </ul>

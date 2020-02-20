@@ -19,6 +19,11 @@ i18n.use(LanguageDetector).init({
                     "Password": "Mot de passe",
                     "Submit": "Envoyer"
                 },
+            validations:
+                {
+                    "FormatEmail": "Veuillez entrer un e-mail",
+                    "Required": "Cette information est requise"
+                }
         },
     },
     fallbackLng: "fr",
