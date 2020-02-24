@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Productivity.Pomodoro.Web", "Acme.Productivity.Pomodoro.Web\Acme.Productivity.Pomodoro.Web.csproj", "{26AF2080-07BE-40B8-9EDB-62F46BCF577F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Productivity.Pomodoro.Business", "Acme.Productivity.Pomodoro.Business\Acme.Productivity.Pomodoro.Business.csproj", "{66925612-F46A-4259-9425-931BE5B88737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Productivity.Pomodoro.Core", "Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj", "{CC54DB86-9F85-4DCE-9A15-5D02CBCDB21E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{26AF2080-07BE-40B8-9EDB-62F46BCF577F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26AF2080-07BE-40B8-9EDB-62F46BCF577F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26AF2080-07BE-40B8-9EDB-62F46BCF577F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66925612-F46A-4259-9425-931BE5B88737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66925612-F46A-4259-9425-931BE5B88737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66925612-F46A-4259-9425-931BE5B88737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66925612-F46A-4259-9425-931BE5B88737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC54DB86-9F85-4DCE-9A15-5D02CBCDB21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC54DB86-9F85-4DCE-9A15-5D02CBCDB21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC54DB86-9F85-4DCE-9A15-5D02CBCDB21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC54DB86-9F85-4DCE-9A15-5D02CBCDB21E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

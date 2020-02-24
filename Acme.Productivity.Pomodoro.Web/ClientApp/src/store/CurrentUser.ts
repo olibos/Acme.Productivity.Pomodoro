@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
-import { AppThunkAction } from "./index";
-import { Security } from "../utils/Security";
-import { history } from "../index";
+import { AppThunkAction } from './index';
+import { Security } from '../utils/Security';
+import { history } from '../index';
 
 // State linked to the store
 export interface UserState
@@ -37,31 +37,32 @@ export const actionCreators = {
     {
         const appState = getState();
         dispatch({
-            type: "USER_AUTHENTICATED",
+            type: 'USER_AUTHENTICATED',
             username: username,
         });
-        Security.saveToken("plip");
-        history.push("/");
+        Security.saveToken('plip');
+        history.push('/');
     },
-    logout: (): AppThunkAction<KnownAction> => (dispatch) => {
+    logout: (): AppThunkAction<KnownAction> => (dispatch) =>
+    {
         Security.logout();
-        history.push("/login");
-        dispatch({type: "USER_DISCONNECTED"});
+        history.push('/login');
+        dispatch({type: 'USER_DISCONNECTED'});
     },
-    recoverSession: () : AppThunkAction<KnownAction> => (dispatch) =>
+    recoverSession: (): AppThunkAction<KnownAction> => (dispatch) =>
     {
         if (Security.isLogged())
         {
             dispatch({
-                type: "USER_AUTHENTICATED",
-                username: "TODO",
+                type: 'USER_AUTHENTICATED',
+                username: 'TODO',
             });
         }
         else
         {
             Security.logout();
-            history.push("/login");
-            dispatch({type: "USER_DISCONNECTED"});
+            history.push('/login');
+            dispatch({type: 'USER_DISCONNECTED'});
         }
     },
 };
@@ -80,12 +81,12 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
 
     switch (action.type)
     {
-        case "USER_AUTHENTICATED":
+        case 'USER_AUTHENTICATED':
             return {
                 username: action.username,
-                isConnected: true
+                isConnected: true,
             };
-        case "USER_DISCONNECTED":
+        case 'USER_DISCONNECTED':
             return unloadedState;
     }
 

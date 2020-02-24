@@ -9,5 +9,10 @@
       <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Acme.Productivity.Pomodoro.Business\Acme.Productivity.Pomodoro.Business.csproj" />
+      <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
+    </ItemGroup>
+
 
 </Project>

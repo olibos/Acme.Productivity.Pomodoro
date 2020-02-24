@@ -7,6 +7,9 @@ namespace Acme.Productivity.Pomodoro.Web
     using System;
     using System.Linq;
 
+    using Acme.Productivity.Pomodoro.Business;
+    using Acme.Productivity.Pomodoro.Business.Concrete;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -65,6 +68,8 @@ namespace Acme.Productivity.Pomodoro.Web
         {
             services.AddControllers();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+
+            services.AddScoped<IUserDomain, UserDomain>();
         }
     }
 }
