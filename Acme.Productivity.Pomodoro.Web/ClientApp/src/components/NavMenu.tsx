@@ -1,46 +1,48 @@
 import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import * as CurrentUserStore from '../store/CurrentUser';
+import { FC, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../store';
+import { useHistory } from 'react-router-dom';
 import { Trans } from 'react-i18next';
-import { FC, useEffect, useState } from 'react';
+import { AppBar, Button, Container, IconButton, Toolbar, Typography } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import useStyles from '../useStyles';
+import * as CurrentUserStore from '../store/CurrentUser';
+import { ApplicationState } from '../store';
 
 type NavMenuProps = CurrentUserStore.UserState &
     typeof CurrentUserStore.actionCreators;
 
 const NavMenu: FC<NavMenuProps> = (props) =>
 {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const classes = useStyles();
 
     useEffect(() =>
     {
         props.recoverSession();
     });
 
+    const history = useHistory();
     return (
         <header>
-            <div className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-                <div className="container">>
-                    <NavLink to="/">
-                        <Trans>Title</Trans>
-                    </NavLink>
-                    <a onClick={() => setIsOpen(!isOpen)} className="mr-2"/>
-                    <div className="d-sm-inline-flex flex-sm-row-reverse">
-                        <ul className="navbar-nav flex-grow">
-                            <div>
-                                <NavLink className="text-dark" to="/"><Trans>Home</Trans></NavLink>
-                            </div>
-
-                            {props.isConnected &&
-                            <div>
-                                <NavLink to="/" onClick={() => props.logout()}><Trans>Logout</Trans></NavLink>
-                            </div>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <Container maxWidth="lg">
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>
+                            <Button color="inherit" onClick={() => history.push("/") }>
+                                <Trans>Title</Trans>
+                            </Button>
+                        </Typography>
+                        {props.isConnected &&
+                        <Button color="inherit" onClick={() => props.logout() }>
+                            <Trans>Logout</Trans>
+                        </Button>
+                        }
+                    </Toolbar>
+                </AppBar>
+            </Container>
         </header>
     );
 };

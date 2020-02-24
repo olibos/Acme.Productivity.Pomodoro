@@ -1,5 +1,3 @@
-// import 'mdbreact/dist/css/mdb.css';
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

@@ -11,7 +11,6 @@ export default () => (
     <I18nextProvider i18n={i18n}>
         <Layout>
             <Route path='/login' component={Login}/>
-
             <PrivateRoute exact path='/' component={Home}/>
         </Layout>
     </I18nextProvider>

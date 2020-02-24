@@ -9,21 +9,24 @@ import { reduxForm, Field, InjectedFormProps } from 'redux-form';
 import ReduxFormInput from './shared/ReduxFormInput';
 import * as Yup from 'yup';
 import ReduxYupValidator from './shared/ReduxYupValidator';
+import { Container } from '@material-ui/core';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
     const {t} = useTranslation();
     const {handleSubmit} = props;
 
-    return <form onSubmit={handleSubmit}>
-        <Field name="email" type="text" label={t('forms:Email address')} component={ReduxFormInput}/>
+    return <Container maxWidth="lg">
+        <form onSubmit={handleSubmit}>
+            <Field name="email" type="text" label={t('forms:Email address')} component={ReduxFormInput}/>
 
-        <Field name="password" type="password" label={t('forms:Password')} component={ReduxFormInput}/>
+            <Field name="password" type="password" label={t('forms:Password')} component={ReduxFormInput}/>
 
-        <button color="primary" type="submit">
-            {t('forms:Submit')}
-        </button>
-    </form>;
+            <button color="primary" type="submit">
+                {t('forms:Submit')}
+            </button>
+        </form>
+    </Container>;
 };
 
 const schema = Yup
