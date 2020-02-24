@@ -9,22 +9,31 @@ import { reduxForm, Field, InjectedFormProps } from 'redux-form';
 import ReduxFormInput from './shared/ReduxFormInput';
 import * as Yup from 'yup';
 import ReduxYupValidator from './shared/ReduxYupValidator';
-import { Container } from '@material-ui/core';
+import { Button, Container, Grid } from '@material-ui/core';
+import useStyles from '../useStyles';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
     const {t} = useTranslation();
     const {handleSubmit} = props;
 
-    return <Container maxWidth="lg">
+    return <Container maxWidth="md">
         <form onSubmit={handleSubmit}>
-            <Field name="email" type="text" label={t('forms:Email address')} component={ReduxFormInput}/>
 
-            <Field name="password" type="password" label={t('forms:Password')} component={ReduxFormInput}/>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Field name="email" type="text" label={t('forms:Email address')} component={ReduxFormInput}/>
+                </Grid>
 
-            <button color="primary" type="submit">
-                {t('forms:Submit')}
-            </button>
+                <Grid item xs={12}>
+                    <Field name="password" type="password" label={t('forms:Password')} component={ReduxFormInput}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button color="primary" type="submit" onClick={handleSubmit}>
+                        {t('forms:Submit')}
+                    </Button>
+                </Grid>
+            </Grid>
         </form>
     </Container>;
 };
