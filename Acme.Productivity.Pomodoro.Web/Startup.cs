@@ -13,11 +13,13 @@ namespace Acme.Productivity.Pomodoro.Web
     using Acme.Productivity.Pomodoro.Business.Concrete;
     using Acme.Productivity.Pomodoro.Data;
     using Acme.Productivity.Pomodoro.Data.SqlServer;
+    using Acme.Productivity.Pomodoro.Data.SqlServer.Model;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -119,6 +121,8 @@ namespace Acme.Productivity.Pomodoro.Web
         /// <param name="services">The container.</param>
         private void AddRepositories(IServiceCollection services)
         {
+            services.AddDbContext<PomodoroContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("PomodoroContext")));
+
             services.AddScoped<IUserRepository, UserRepository>();
         }
     }
