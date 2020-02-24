@@ -13,6 +13,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Business\Acme.Productivity.Pomodoro.Business.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
+      <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data.SqlServer\Acme.Productivity.Pomodoro.Data.SqlServer.csproj" />
+      <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data\Acme.Productivity.Pomodoro.Data.csproj" />
     </ItemGroup>
 
 
