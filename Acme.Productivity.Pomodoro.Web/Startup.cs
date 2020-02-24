@@ -11,6 +11,8 @@ namespace Acme.Productivity.Pomodoro.Web
 
     using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Business.Concrete;
+    using Acme.Productivity.Pomodoro.Data;
+    using Acme.Productivity.Pomodoro.Data.SqlServer;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
@@ -74,7 +76,8 @@ namespace Acme.Productivity.Pomodoro.Web
             services.AddControllers();
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 
-            services.AddScoped<IUserDomain, UserDomain>();
+            this.AddDomains(services);
+            this.AddRepositories(services);
 
             services.AddAuthentication(x =>
             {
@@ -99,6 +102,24 @@ namespace Acme.Productivity.Pomodoro.Web
                         IssuerSigningKey = key
                     };
                 });
+        }
+
+        /// <summary>
+        /// Add the domain services to the container.
+        /// </summary>
+        /// <param name="services">The container.</param>
+        private void AddDomains(IServiceCollection services)
+        {
+            services.AddScoped<IUserDomain, UserDomain>();
+        }
+
+        /// <summary>
+        /// Add repositories to the container.
+        /// </summary>
+        /// <param name="services">The container.</param>
+        private void AddRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
