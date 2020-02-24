@@ -10,6 +10,7 @@ import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import ReduxFormInput from "./shared/ReduxFormInput";
 import * as Yup from "yup";
 import ReduxYupValidator from "./shared/ReduxYupValidator";
+import jsSha512 from 'js-sha512';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
@@ -54,7 +55,8 @@ const Login: FC<LoginProps> = (props) =>
 {
     const submit = (values: any) =>
     {
-        props.login(values.email);
+        const hash = jsSha512.sha512(values.password);
+        props.login(values.email, hash);
     };
 
     return <>

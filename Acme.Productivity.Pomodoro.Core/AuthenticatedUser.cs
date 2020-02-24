@@ -10,13 +10,6 @@ namespace Acme.Productivity.Pomodoro.Core
     public class AuthenticatedUser
     {
         /// <summary>
-        /// Gets or sets the Bearer.
-        /// </summary>
-        /// <value>The Bearer.</value>
-        [DataMember(Name = "bearer")]
-        public string Bearer { get; set; }
-
-        /// <summary>
         /// Gets or sets the Name.
         /// </summary>
         /// <value>The Name.</value>

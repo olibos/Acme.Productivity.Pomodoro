@@ -2,6 +2,7 @@ import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './index';
 import { Security } from '../utils/Security';
 import { history } from '../index';
+import { AjaxService } from '../services/AjaxService';
 
 // State linked to the store
 export interface UserState
@@ -11,10 +12,11 @@ export interface UserState
 }
 
 // Interface for all actions
-export interface AuthenticateUser
+export interface UserAuthentication
 {
-    type: 'AUTHENTICATE_USER',
-    username: string
+    type: 'USER_AUTHENTICATION',
+    username: string,
+    password: string
 }
 
 export interface UserAuthenticated
@@ -23,25 +25,37 @@ export interface UserAuthenticated
     username: string,
 }
 
+export interface UserAuthenticationFailed
+{
+    type: 'USER_AUTHENTICATION_FAILED'
+}
+
 export interface UserDisconnected
 {
     type: 'USER_DISCONNECTED',
 }
 
 // Group all known actions
-export type KnownAction = AuthenticateUser | UserAuthenticated | UserDisconnected;
+export type KnownAction = UserAuthentication | UserAuthenticated | UserAuthenticationFailed | UserDisconnected;
 
 // Export the actions to be used in components.
 export const actionCreators = {
-    login: (username: string): AppThunkAction<KnownAction> => (dispatch, getState) =>
+    login: (username: string, password: string): AppThunkAction<KnownAction> => (dispatch) =>
     {
-        const appState = getState();
-        dispatch({
-            type: 'USER_AUTHENTICATED',
-            username: username,
+        AjaxService.post<{}, {}>("/api/authenticate", {
+            username,
+            password
+        }).then(() => {
+            dispatch({
+                type: 'USER_AUTHENTICATED',
+                username: username
+            });
+            history.push('/');
+        }).catch(() => {
+            dispatch({
+                type: 'USER_AUTHENTICATION_FAILED'
+            });
         });
-        Security.saveToken('plip');
-        history.push('/');
     },
     logout: (): AppThunkAction<KnownAction> => (dispatch) =>
     {
