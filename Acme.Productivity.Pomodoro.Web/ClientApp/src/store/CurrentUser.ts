@@ -7,7 +7,6 @@ import { AjaxService } from '../services/AjaxService';
 // State linked to the store
 export interface UserState
 {
-    username: string | null;
     isConnected: boolean;
 }
 
@@ -21,8 +20,7 @@ export interface UserAuthentication
 
 export interface UserAuthenticated
 {
-    type: 'USER_AUTHENTICATED',
-    username: string,
+    type: 'USER_AUTHENTICATED'
 }
 
 export interface UserAuthenticationFailed
@@ -42,18 +40,20 @@ export type KnownAction = UserAuthentication | UserAuthenticated | UserAuthentic
 export const actionCreators = {
     login: (username: string, password: string): AppThunkAction<KnownAction> => (dispatch) =>
     {
-        AjaxService.post<{}, {}>("/api/authenticate", {
+        AjaxService.post<{}, any>('/api/authenticate', {
             username,
-            password
-        }).then(() => {
+            password,
+        }).then((data) =>
+        {
             dispatch({
                 type: 'USER_AUTHENTICATED',
-                username: username
             });
+            Security.saveToken(data.bearer);
             history.push('/');
-        }).catch(() => {
+        }).catch(() =>
+        {
             dispatch({
-                type: 'USER_AUTHENTICATION_FAILED'
+                type: 'USER_AUTHENTICATION_FAILED',
             });
         });
     },
@@ -65,24 +65,22 @@ export const actionCreators = {
     },
     recoverSession: (): AppThunkAction<KnownAction> => (dispatch) =>
     {
-        if (Security.isLogged())
+        AjaxService.get('/api/authenticate/check').then(() =>
         {
             dispatch({
                 type: 'USER_AUTHENTICATED',
-                username: 'TODO',
             });
-        }
-        else
+        }).catch(() =>
         {
             Security.logout();
             history.push('/login');
             dispatch({type: 'USER_DISCONNECTED'});
-        }
+        });
     },
 };
 
 // Default state and reducer to change the state when action is done
-const unloadedState: UserState = {username: null, isConnected: false};
+const unloadedState: UserState = {isConnected: false};
 
 export const reducer: Reducer<UserState> = (state: UserState | undefined, incomingAction: Action): UserState =>
 {
@@ -97,7 +95,6 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
     {
         case 'USER_AUTHENTICATED':
             return {
-                username: action.username,
                 isConnected: true,
             };
         case 'USER_DISCONNECTED':

@@ -1,14 +1,30 @@
-const headers: string[][] = [];
-headers.push(['Accept-Language', document.querySelector('html')!.lang]);
-headers.push(['Content-Type', 'application/json']);
-headers.push(['pragma', 'no-cache']);
-headers.push(['cache-control', 'no-cache']);
+import { Security } from '../utils/Security';
+
+const baseHeaders: string[][] = [];
+baseHeaders.push(['Accept-Language', document.querySelector('html')!.lang]);
+baseHeaders.push(['Content-Type', 'application/json']);
+baseHeaders.push(['pragma', 'no-cache']);
+baseHeaders.push(['cache-control', 'no-cache']);
 
 export const AjaxService = {
+    getHeaders() : string[][]
+    {
+      const headers = [...baseHeaders];
+
+        const bearer = Security.getToken();
+        if (bearer)
+        {
+            headers.push(["Authorization", "Bearer " + bearer]);
+        }
+
+        return headers;
+    },
     postNoData(route: RequestInfo): Promise<void>
     {
         return new Promise<void>((resolve, reject) =>
         {
+            const headers = AjaxService.getHeaders();
+
             fetch(route,
                 {
                     headers,
@@ -31,6 +47,8 @@ export const AjaxService = {
     {
         return new Promise<Tout>((resolve, reject) =>
         {
+            const headers = AjaxService.getHeaders();
+
             fetch(route,
                 {
                     headers,
@@ -61,6 +79,8 @@ export const AjaxService = {
     {
         return new Promise<boolean>((resolve, reject) =>
         {
+            const headers = AjaxService.getHeaders();
+
             fetch(route,
                 {
                     headers,
@@ -84,6 +104,8 @@ export const AjaxService = {
     {
         return new Promise<Tout>((resolve, reject) =>
         {
+            const headers = AjaxService.getHeaders();
+
             return fetch(route,
                 {
                     headers,

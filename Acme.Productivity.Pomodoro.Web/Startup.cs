@@ -6,16 +6,20 @@ namespace Acme.Productivity.Pomodoro.Web
 {
     using System;
     using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
 
     using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Business.Concrete;
 
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
 
     public class Startup
     {
@@ -48,6 +52,7 @@ namespace Acme.Productivity.Pomodoro.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -58,7 +63,7 @@ namespace Acme.Productivity.Pomodoro.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseReactDevelopmentServer("start");
                 }
             });
         }
@@ -70,6 +75,30 @@ namespace Acme.Productivity.Pomodoro.Web
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 
             services.AddScoped<IUserDomain, UserDomain>();
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
+
+            var keyBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(this.Configuration["jwt:key"]), Encoding.UTF8.GetBytes(this.Configuration["jwt:saltz"]), 4200);
+            var key = new SymmetricSecurityKey(keyBytes.GetBytes(512 / 8));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = this.Configuration["jwt:issuer"],
+                        ValidAudience = this.Configuration["jwt:issuer"],
+                        IssuerSigningKey = key
+                    };
+                });
         }
     }
 }

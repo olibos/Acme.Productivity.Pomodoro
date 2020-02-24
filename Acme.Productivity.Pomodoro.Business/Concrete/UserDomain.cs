@@ -4,6 +4,8 @@
 
 namespace Acme.Productivity.Pomodoro.Business.Concrete
 {
+    using System;
+
     using Acme.Productivity.Pomodoro.Core;
 
     /// <summary>
@@ -16,6 +18,7 @@ namespace Acme.Productivity.Pomodoro.Business.Concrete
         {
             return new AuthenticatedUser
             {
+                Id = Guid.NewGuid(),
                 Name = authentication.UserName
             };
         }
