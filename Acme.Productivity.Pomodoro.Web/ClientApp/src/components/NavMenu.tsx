@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
-import * as CurrentUserStore from "../store/CurrentUser";
-import { connect } from "react-redux";
-import { ApplicationState } from "../store";
-import { Trans } from "react-i18next";
-import { FC, useEffect, useState } from "react";
+import { Link, NavLink } from 'react-router-dom';
+import * as CurrentUserStore from '../store/CurrentUser';
+import { connect } from 'react-redux';
+import { ApplicationState } from '../store';
+import { Trans } from 'react-i18next';
+import { FC, useEffect, useState } from 'react';
 
 type NavMenuProps = CurrentUserStore.UserState &
     typeof CurrentUserStore.actionCreators;
@@ -15,33 +13,34 @@ const NavMenu: FC<NavMenuProps> = (props) =>
 {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-       props.recoverSession();
+    useEffect(() =>
+    {
+        props.recoverSession();
     });
 
     return (
         <header>
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
-                <Container>
-                    <NavbarBrand tag={Link} to="/">
+            <div className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+                <div className="container">>
+                    <NavLink to="/">
                         <Trans>Title</Trans>
-                    </NavbarBrand>
-                    <NavbarToggler onClick={() => setIsOpen(!isOpen)} className="mr-2"/>
-                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={isOpen} navbar>
+                    </NavLink>
+                    <a onClick={() => setIsOpen(!isOpen)} className="mr-2"/>
+                    <div className="d-sm-inline-flex flex-sm-row-reverse">
                         <ul className="navbar-nav flex-grow">
-                            <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/"><Trans>Home</Trans></NavLink>
-                            </NavItem>
+                            <div>
+                                <NavLink className="text-dark" to="/"><Trans>Home</Trans></NavLink>
+                            </div>
 
                             {props.isConnected &&
-                            <NavItem>
-                                <NavLink href="#" onClick={() => props.logout()}><Trans>Logout</Trans></NavLink>
-                            </NavItem>
+                            <div>
+                                <NavLink to="/" onClick={() => props.logout()}><Trans>Logout</Trans></NavLink>
+                            </div>
                             }
                         </ul>
-                    </Collapse>
-                </Container>
-            </Navbar>
+                    </div>
+                </div>
+            </div>
         </header>
     );
 };

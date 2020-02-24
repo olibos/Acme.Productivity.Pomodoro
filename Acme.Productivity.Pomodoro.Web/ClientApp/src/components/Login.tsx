@@ -1,15 +1,14 @@
-import * as CurrentUserStore from "../store/CurrentUser";
-import { RouteComponentProps } from "react-router";
-import * as React from "react";
-import { connect } from "react-redux";
-import { ApplicationState } from "../store";
-import { Button, Col, FormGroup, Row } from "reactstrap";
-import { FC } from "react";
-import { useTranslation } from "react-i18next";
-import { reduxForm, Field, InjectedFormProps } from "redux-form";
-import ReduxFormInput from "./shared/ReduxFormInput";
-import * as Yup from "yup";
-import ReduxYupValidator from "./shared/ReduxYupValidator";
+import * as CurrentUserStore from '../store/CurrentUser';
+import { RouteComponentProps } from 'react-router';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { ApplicationState } from '../store';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { reduxForm, Field, InjectedFormProps } from 'redux-form';
+import ReduxFormInput from './shared/ReduxFormInput';
+import * as Yup from 'yup';
+import ReduxYupValidator from './shared/ReduxYupValidator';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
@@ -17,19 +16,13 @@ const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
     const {handleSubmit} = props;
 
     return <form onSubmit={handleSubmit}>
-        <FormGroup>
-            <Field name="email" type="text" label={t("forms:Email address")} component={ReduxFormInput}/>
-        </FormGroup>
+        <Field name="email" type="text" label={t('forms:Email address')} component={ReduxFormInput}/>
 
-        <FormGroup>
-            <Field name="password" type="password" label={t("forms:Password")} component={ReduxFormInput}/>
-        </FormGroup>
+        <Field name="password" type="password" label={t('forms:Password')} component={ReduxFormInput}/>
 
-        <FormGroup>
-            <Button variant="primary" type="submit">
-                {t("forms:Submit")}
-            </Button>
-        </FormGroup>
+        <button color="primary" type="submit">
+            {t('forms:Submit')}
+        </button>
     </form>;
 };
 
@@ -58,11 +51,11 @@ const Login: FC<LoginProps> = (props) =>
     };
 
     return <>
-        <Row className="justify-content-center">
-            <Col xs={12} md={6}>
+        <div className="row justify-content-center">
+            <div className="col">
                 <ReduxLoginForm onSubmit={submit}/>
-            </Col>
-        </Row>
+            </div>
+        </div>
     </>;
 };
 
