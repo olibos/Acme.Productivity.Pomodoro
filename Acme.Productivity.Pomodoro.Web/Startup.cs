@@ -12,8 +12,8 @@ namespace Acme.Productivity.Pomodoro.Web
     using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Business.Concrete;
     using Acme.Productivity.Pomodoro.Data;
-    using Acme.Productivity.Pomodoro.Data.SqlServer;
-    using Acme.Productivity.Pomodoro.Data.SqlServer.Model;
+    using Acme.Productivity.Pomodoro.Data.EntityFramework;
+    using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
 
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;

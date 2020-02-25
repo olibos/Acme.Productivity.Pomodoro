@@ -2,8 +2,11 @@
 // Copyright (c) Acme. All rights reserved.
 // </copyright>
 
-namespace Acme.Productivity.Pomodoro.Data.SqlServer.Model
+namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
 {
+    using System;
+    using System.Linq;
+
     using Microsoft.EntityFrameworkCore;
 
     public class PomodoroContext : DbContext

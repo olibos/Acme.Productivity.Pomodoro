@@ -2,15 +2,15 @@
 // Copyright (c) Acme. All rights reserved.
 // </copyright>
 
-namespace Acme.Productivity.Pomodoro.Data.SqlServer
+namespace Acme.Productivity.Pomodoro.Data.EntityFramework
 {
     using System;
     using System.Linq;
 
     using Acme.Productivity.Pomodoro.Core;
-    using Acme.Productivity.Pomodoro.Data.SqlServer.Model;
+    using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
 
-    public class UserRepository: IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly PomodoroContext _context;
 
