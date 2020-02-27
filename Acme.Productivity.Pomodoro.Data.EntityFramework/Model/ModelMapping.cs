@@ -24,6 +24,10 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
             this.CreateMap<User, AuthenticatedUser>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(s => s.Id))
                 .ForMember(x => x.Name, opt => opt.MapFrom(s => s.UserName));
+
+            this.CreateMap<Project, Core.Project>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(x => x.Name, opt => opt.MapFrom(s => s.Name));
         }
     }
 }

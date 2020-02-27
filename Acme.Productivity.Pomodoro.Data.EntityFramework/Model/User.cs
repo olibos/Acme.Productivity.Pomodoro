@@ -5,6 +5,7 @@
 namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
@@ -16,12 +17,11 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     public class User
     {
         /// <summary>
-        /// Gets or sets the UserName.
+        /// Gets or sets the Password.
         /// </summary>
-        /// <value>The UserName.</value>
-        [MaxLength(800)]
+        /// <value>The Password.</value>
         [Required]
-        public string UserName { get; set; }
+        public DateTime CreationDate { get; set; }
 
         /// <summary>
         /// Gets or sets the Id.
@@ -32,6 +32,13 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         public Guid Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the LastLoginDate.
+        /// </summary>
+        /// <value>The LastLoginDate.</value>
+        [Required]
+        public DateTime LastLoginDate { get; set; }
+
+        /// <summary>
         /// Gets or sets the Password.
         /// </summary>
         /// <value>The Password.</value>
@@ -40,17 +47,16 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         public string Password { get; set; }
 
         /// <summary>
-        /// Gets or sets the Password.
+        /// Gets or sets the projects.
         /// </summary>
-        /// <value>The Password.</value>
-        [Required]
-        public DateTime CreationDate { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
 
         /// <summary>
-        /// Gets or sets the LastLoginDate.
+        /// Gets or sets the UserName.
         /// </summary>
-        /// <value>The LastLoginDate.</value>
+        /// <value>The UserName.</value>
+        [MaxLength(800)]
         [Required]
-        public DateTime LastLoginDate { get; set; }
+        public string UserName { get; set; }
     }
 }

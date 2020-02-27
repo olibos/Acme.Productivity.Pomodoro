@@ -15,13 +15,19 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     public class PomodoroContext : DbContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PomodoroContext"/> class.
+        /// Initializes a new instance of the <see cref="PomodoroContext" /> class.
         /// </summary>
         /// <param name="options">Options to configure the context.</param>
         public PomodoroContext(DbContextOptions<PomodoroContext> options)
             : base(options)
         {
         }
+
+        /// <summary>
+        /// Gets or sets the Projects.
+        /// </summary>
+        /// <value>The Projects.</value>
+        public DbSet<Project> Projects { get; set; }
 
         /// <summary>
         /// Gets or sets the Users.
@@ -33,6 +39,7 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasIndex("UserName").IsUnique();
+            modelBuilder.Entity<Project>().HasIndex("UserId");
         }
     }
 }
