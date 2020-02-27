@@ -2,7 +2,7 @@
 // Copyright (c) Acme. All rights reserved.
 // </copyright>
 
-namespace Acme.Productivity.Pomodoro.Business.Concrete
+namespace Acme.Productivity.Pomodoro.Business
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -15,7 +15,7 @@ namespace Acme.Productivity.Pomodoro.Business.Concrete
     /// <summary>
     /// Manage all information about the user.
     /// </summary>
-    public class UserDomain : IUserDomain
+    public class UserDomain
     {
         private readonly IUserRepository _userRepository;
 
@@ -28,8 +28,12 @@ namespace Acme.Productivity.Pomodoro.Business.Concrete
             this._userRepository = userRepository;
         }
 
-        /// <inheritdoc />
-        public async Task<AuthenticatedUser> AuthenticateAsync([NotNull]UserAuthentication authentication)
+        /// <summary>
+        /// Authenticate the user.
+        /// </summary>
+        /// <param name="authentication">The authentication informations.</param>
+        /// <returns>The user or null if not authenticated.</returns>
+        public async Task<AuthenticatedUser> AuthenticateAsync([NotNull] UserAuthentication authentication)
         {
             return await this._userRepository.AuthenticateAsync(authentication.UserName, authentication.Password);
         }

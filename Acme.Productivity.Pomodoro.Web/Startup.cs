@@ -10,7 +10,6 @@ namespace Acme.Productivity.Pomodoro.Web
     using System.Text;
 
     using Acme.Productivity.Pomodoro.Business;
-    using Acme.Productivity.Pomodoro.Business.Concrete;
     using Acme.Productivity.Pomodoro.Data;
     using Acme.Productivity.Pomodoro.Data.EntityFramework;
     using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
@@ -114,7 +113,7 @@ namespace Acme.Productivity.Pomodoro.Web
         /// <param name="services">The container.</param>
         private void AddDomains(IServiceCollection services)
         {
-            services.AddScoped<IUserDomain, UserDomain>();
+            services.AddScoped<UserDomain>();
         }
 
         /// <summary>

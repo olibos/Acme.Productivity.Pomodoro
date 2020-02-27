@@ -23,9 +23,9 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IUserDomain _userDomain;
+        private readonly UserDomain _userDomain;
 
-        public AuthenticationController(IUserDomain userDomain, IConfiguration configuration)
+        public AuthenticationController(UserDomain userDomain, IConfiguration configuration)
         {
             this._userDomain = userDomain;
             this._configuration = configuration;
