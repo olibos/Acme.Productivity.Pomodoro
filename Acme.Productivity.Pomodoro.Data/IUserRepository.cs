@@ -4,6 +4,8 @@
 
 namespace Acme.Productivity.Pomodoro.Data
 {
+    using System.Threading.Tasks;
+
     using Acme.Productivity.Pomodoro.Core;
 
     public interface IUserRepository
@@ -14,6 +16,6 @@ namespace Acme.Productivity.Pomodoro.Data
         /// <param name="userName">The user name.</param>
         /// <param name="password">The password of the user.</param>
         /// <returns>The completed use if correct, null if invalid credentials.</returns>
-        AuthenticatedUser Authenticate(string userName, string password);
+        Task<AuthenticatedUser> AuthenticateAsync(string userName, string password);
     }
 }

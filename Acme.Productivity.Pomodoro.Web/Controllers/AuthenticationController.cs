@@ -9,6 +9,7 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
     using System.Linq;
     using System.Security.Cryptography;
     using System.Text;
+    using System.Threading.Tasks;
 
     using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Core;
@@ -37,14 +38,14 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
         /// <returns>The user or an error.</returns>
         [Route("api/authenticate")]
         [HttpPost]
-        public ActionResult<AuthenticatedUser> Authenticate(UserAuthentication authentication)
+        public async Task<ActionResult<AuthenticatedUser>> Authenticate(UserAuthentication authentication)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest();
             }
 
-            var user = this._userDomain.Authenticate(authentication);
+            var user = await this._userDomain.AuthenticateAsync(authentication);
 
             if (user == null)
             {

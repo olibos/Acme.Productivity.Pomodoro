@@ -7,6 +7,7 @@ namespace Acme.Productivity.Pomodoro.Business.Concrete
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Acme.Productivity.Pomodoro.Core;
     using Acme.Productivity.Pomodoro.Data;
@@ -28,9 +29,9 @@ namespace Acme.Productivity.Pomodoro.Business.Concrete
         }
 
         /// <inheritdoc />
-        public AuthenticatedUser Authenticate([NotNull]UserAuthentication authentication)
+        public async Task<AuthenticatedUser> AuthenticateAsync([NotNull]UserAuthentication authentication)
         {
-            return this._userRepository.Authenticate(authentication.UserName, authentication.Password);
+            return await this._userRepository.AuthenticateAsync(authentication.UserName, authentication.Password);
         }
     }
 }

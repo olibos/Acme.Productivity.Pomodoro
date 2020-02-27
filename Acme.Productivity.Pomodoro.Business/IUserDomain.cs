@@ -5,7 +5,9 @@
 namespace Acme.Productivity.Pomodoro.Business
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Acme.Productivity.Pomodoro.Core;
 
@@ -19,6 +21,6 @@ namespace Acme.Productivity.Pomodoro.Business
         /// </summary>
         /// <param name="authentication">The authentication informations.</param>
         /// <returns>The user or null if not authenticated.</returns>
-        AuthenticatedUser Authenticate(UserAuthentication authentication);
+        Task<AuthenticatedUser> AuthenticateAsync([NotNull] UserAuthentication authentication);
     }
 }

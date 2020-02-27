@@ -6,6 +6,7 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Acme.Productivity.Pomodoro.Core;
     using Acme.Productivity.Pomodoro.Core.Tools;
@@ -24,21 +25,29 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
             this._mapper = mapper;
         }
 
-        public AuthenticatedUser Authenticate(string userName, string password)
+        public async Task<AuthenticatedUser> AuthenticateAsync(string userName, string password)
         {
             var userDb = this._context.Users.SingleOrDefault(x => x.UserName == userName);
 
             if (userDb == null)
             {
-                userDb = new User { Id = SecurityEngine.GenerateId(), UserName = userName, Password = SecurityEngine.HashPassword(password) };
+                userDb = new User
+                {
+                    Id = SecurityEngine.GenerateId(),
+                    UserName = userName,
+                    Password = SecurityEngine.HashPassword(password),
+                    CreationDate = DateTime.UtcNow, LastLoginDate = DateTime.UtcNow
+                };
 
                 this._context.Users.Add(userDb);
-                this._context.SaveChanges();
+                await this._context.SaveChangesAsync();
                 return this._mapper.Map<AuthenticatedUser>(userDb);
             }
 
             if (SecurityEngine.VerifyPassword(password, userDb.Password))
             {
+                userDb.LastLoginDate = DateTime.UtcNow;
+                await this._context.SaveChangesAsync();
                 return this._mapper.Map<AuthenticatedUser>(userDb);
             }
 
