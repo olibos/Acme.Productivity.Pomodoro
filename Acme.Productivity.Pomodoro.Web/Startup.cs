@@ -15,6 +15,8 @@ namespace Acme.Productivity.Pomodoro.Web
     using Acme.Productivity.Pomodoro.Data.EntityFramework;
     using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
 
+    using AutoMapper;
+
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -122,6 +124,7 @@ namespace Acme.Productivity.Pomodoro.Web
         private void AddRepositories(IServiceCollection services)
         {
             services.AddDbContext<PomodoroContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("PomodoroContext")));
+            services.AddAutoMapper(typeof(ModelMapping));
 
             services.AddScoped<IUserRepository, UserRepository>();
         }

@@ -11,13 +11,17 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
     using Acme.Productivity.Pomodoro.Core.Tools;
     using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
 
+    using AutoMapper;
+
     public class UserRepository : IUserRepository
     {
         private readonly PomodoroContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepository(PomodoroContext context)
+        public UserRepository(PomodoroContext context, IMapper mapper)
         {
             this._context = context;
+            this._mapper = mapper;
         }
 
         public AuthenticatedUser Authenticate(string userName, string password)
@@ -26,20 +30,19 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
 
             if (userDb == null)
             {
-                userDb = new User();
+                userDb = new User { Id = SecurityEngine.GenerateId(), UserName = userName, Password = SecurityEngine.HashPassword(password) };
 
-                userDb.Id = SecurityEngine.GenerateId();
-                userDb.UserName = userName;
-                userDb.Password = SecurityEngine.HashPassword(password);
                 this._context.Users.Add(userDb);
                 this._context.SaveChanges();
+                return this._mapper.Map<AuthenticatedUser>(userDb);
             }
 
-            return new AuthenticatedUser
+            if (SecurityEngine.VerifyPassword(password, userDb.Password))
             {
-                Id = Guid.NewGuid(),
-                Name = userName
-            };
+                return this._mapper.Map<AuthenticatedUser>(userDb);
+            }
+
+            return null;
         }
     }
 }
