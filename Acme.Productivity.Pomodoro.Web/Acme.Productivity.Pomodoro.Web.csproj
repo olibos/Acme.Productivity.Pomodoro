@@ -8,13 +8,13 @@
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
       <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.2" />
       <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Business\Acme.Productivity.Pomodoro.Business.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data.EntityFramework\Acme.Productivity.Pomodoro.Data.EntityFramework.csproj" />
-      <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data.SqlServer\Acme.Productivity.Pomodoro.Data.SqlServer.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data\Acme.Productivity.Pomodoro.Data.csproj" />
     </ItemGroup>
 
