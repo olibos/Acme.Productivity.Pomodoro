@@ -26,13 +26,23 @@ namespace Acme.Productivity.Pomodoro.Web
     using Microsoft.Extensions.Hosting;
     using Microsoft.IdentityModel.Tokens;
 
+    /// <summary>
+    /// Launch the application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration to use.</param>
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
         /// <summary>
@@ -73,7 +83,10 @@ namespace Acme.Productivity.Pomodoro.Web
             });
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">The collection of services to configure.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -102,7 +115,7 @@ namespace Acme.Productivity.Pomodoro.Web
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = this.Configuration["jwt:issuer"],
                         ValidAudience = this.Configuration["jwt:issuer"],
-                        IssuerSigningKey = key
+                        IssuerSigningKey = key,
                     };
                 });
         }

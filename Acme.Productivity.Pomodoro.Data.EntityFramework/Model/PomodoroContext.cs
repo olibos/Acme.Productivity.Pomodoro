@@ -9,9 +9,17 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
 
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// Represents the main database context.
+    /// </summary>
     public class PomodoroContext : DbContext
     {
-        public PomodoroContext(DbContextOptions<PomodoroContext> options) : base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PomodoroContext"/> class.
+        /// </summary>
+        /// <param name="options">Options to configure the context.</param>
+        public PomodoroContext(DbContextOptions<PomodoroContext> options)
+            : base(options)
         {
         }
 

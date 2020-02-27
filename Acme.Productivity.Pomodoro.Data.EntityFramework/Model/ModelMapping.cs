@@ -11,10 +11,13 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
 
     using AutoMapper;
 
+    /// <summary>
+    /// Mapping for data model.
+    /// </summary>
     public class ModelMapping : Profile
     {
         /// <summary>
-        /// Creates an instance of the profile.
+        /// Initializes a new instance of the <see cref="ModelMapping"/> class.
         /// </summary>
         public ModelMapping()
         {

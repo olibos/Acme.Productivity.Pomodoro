@@ -4,9 +4,28 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <DocumentationFile>bin\Debug\Acme.Productivity.Pomodoro.Business.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Acme.Productivity.Pomodoro.Business.xml</DocumentationFile>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data\Acme.Productivity.Pomodoro.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="stylecop.json" />
+      <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
 </Project>

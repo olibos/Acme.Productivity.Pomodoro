@@ -4,6 +4,16 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Acme.Productivity.Pomodoro.Web.xml</DocumentationFile>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Acme.Productivity.Pomodoro.Web.xml</DocumentationFile>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
@@ -11,6 +21,7 @@
       <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.2" />
       <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,6 +29,10 @@
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data.EntityFramework\Acme.Productivity.Pomodoro.Data.EntityFramework.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data\Acme.Productivity.Pomodoro.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
 

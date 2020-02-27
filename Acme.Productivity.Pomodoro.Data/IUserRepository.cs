@@ -8,6 +8,9 @@ namespace Acme.Productivity.Pomodoro.Data
 
     using Acme.Productivity.Pomodoro.Core;
 
+    /// <summary>
+    /// Manage the users.
+    /// </summary>
     public interface IUserRepository
     {
         /// <summary>

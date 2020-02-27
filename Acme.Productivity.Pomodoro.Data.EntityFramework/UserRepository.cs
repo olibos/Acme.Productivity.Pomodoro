@@ -14,20 +14,29 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
 
     using AutoMapper;
 
+    /// <summary>
+    /// The repository for the users.
+    /// </summary>
     public class UserRepository : IUserRepository
     {
-        private readonly PomodoroContext _context;
-        private readonly IMapper _mapper;
+        private readonly PomodoroContext context;
+        private readonly IMapper mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository"/> class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="mapper">The auto mapper instance.</param>
         public UserRepository(PomodoroContext context, IMapper mapper)
         {
-            this._context = context;
-            this._mapper = mapper;
+            this.context = context;
+            this.mapper = mapper;
         }
 
+        /// <inheritdoc />
         public async Task<AuthenticatedUser> AuthenticateAsync(string userName, string password)
         {
-            var userDb = this._context.Users.SingleOrDefault(x => x.UserName == userName);
+            var userDb = this.context.Users.SingleOrDefault(x => x.UserName == userName);
 
             if (userDb == null)
             {
@@ -36,19 +45,20 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
                     Id = SecurityEngine.GenerateId(),
                     UserName = userName,
                     Password = SecurityEngine.HashPassword(password),
-                    CreationDate = DateTime.UtcNow, LastLoginDate = DateTime.UtcNow
+                    CreationDate = DateTime.UtcNow,
+                    LastLoginDate = DateTime.UtcNow,
                 };
 
-                this._context.Users.Add(userDb);
-                await this._context.SaveChangesAsync();
-                return this._mapper.Map<AuthenticatedUser>(userDb);
+                this.context.Users.Add(userDb);
+                await this.context.SaveChangesAsync();
+                return this.mapper.Map<AuthenticatedUser>(userDb);
             }
 
             if (SecurityEngine.VerifyPassword(password, userDb.Password))
             {
                 userDb.LastLoginDate = DateTime.UtcNow;
-                await this._context.SaveChangesAsync();
-                return this._mapper.Map<AuthenticatedUser>(userDb);
+                await this.context.SaveChangesAsync();
+                return this.mapper.Map<AuthenticatedUser>(userDb);
             }
 
             return null;

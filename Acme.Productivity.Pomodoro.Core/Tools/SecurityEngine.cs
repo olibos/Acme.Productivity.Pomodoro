@@ -38,11 +38,11 @@ namespace Acme.Productivity.Pomodoro.Core.Tools
         }
 
         /// <summary>
-        /// Verify if the password is a hash
+        /// Verify if the password is a hash.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="hash"></param>
-        /// <returns></returns>
+        /// <param name="password">The password to be verified.</param>
+        /// <param name="hash">The hash against wich vto verify.</param>
+        /// <returns>True if the password is valid.</returns>
         public static bool VerifyPassword(string password, string hash)
         {
             if (password == null || hash == null)

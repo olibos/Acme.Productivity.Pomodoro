@@ -4,6 +4,16 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Acme.Productivity.Pomodoro.Data.EntityFramework.xml</DocumentationFile>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\Acme.Productivity.Pomodoro.Data.EntityFramework.xml</DocumentationFile>
+      <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Core\Acme.Productivity.Pomodoro.Core.csproj" />
       <ProjectReference Include="..\Acme.Productivity.Pomodoro.Data\Acme.Productivity.Pomodoro.Data.csproj" />
@@ -14,6 +24,15 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2" />
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
 </Project>

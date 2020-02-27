@@ -17,15 +17,15 @@ namespace Acme.Productivity.Pomodoro.Business
     /// </summary>
     public class UserDomain
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
-        /// Creates a new instance of the user repository.
+        /// Initializes a new instance of the <see cref="UserDomain"/> class.
         /// </summary>
-        /// <param name="userRepository"></param>
+        /// <param name="userRepository">The user repository.</param>
         public UserDomain(IUserRepository userRepository)
         {
-            this._userRepository = userRepository;
+            this.userRepository = userRepository;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Acme.Productivity.Pomodoro.Business
         /// <returns>The user or null if not authenticated.</returns>
         public async Task<AuthenticatedUser> AuthenticateAsync([NotNull] UserAuthentication authentication)
         {
-            return await this._userRepository.AuthenticateAsync(authentication.UserName, authentication.Password);
+            return await this.userRepository.AuthenticateAsync(authentication.UserName, authentication.Password);
         }
     }
 }

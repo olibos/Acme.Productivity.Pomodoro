@@ -9,6 +9,9 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
+    /// <summary>
+    /// Table to store the users.
+    /// </summary>
     [Table("Users")]
     public class User
     {

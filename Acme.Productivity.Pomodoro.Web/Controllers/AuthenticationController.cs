@@ -19,16 +19,24 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
 
+    /// <summary>
+    /// All api to authenticate the user.
+    /// </summary>
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly UserDomain _userDomain;
+        private readonly IConfiguration configuration;
+        private readonly UserDomain userDomain;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthenticationController"/> class.
+        /// </summary>
+        /// <param name="userDomain">The user domain to use.</param>
+        /// <param name="configuration">The base configuration.</param>
         public AuthenticationController(UserDomain userDomain, IConfiguration configuration)
         {
-            this._userDomain = userDomain;
-            this._configuration = configuration;
+            this.userDomain = userDomain;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -45,18 +53,19 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
                 return this.BadRequest();
             }
 
-            var user = await this._userDomain.AuthenticateAsync(authentication);
+            var user = await this.userDomain.AuthenticateAsync(authentication);
 
             if (user == null)
             {
                 return this.Unauthorized();
             }
 
-            var keyBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(this._configuration["jwt:key"]), Encoding.UTF8.GetBytes(this._configuration["jwt:saltz"]), 4200);
+            var keyBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(this.configuration["jwt:key"]), Encoding.UTF8.GetBytes(this.configuration["jwt:saltz"]), 4200);
             var key = new SymmetricSecurityKey(keyBytes.GetBytes(512 / 8));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
-            var token = new JwtSecurityToken(this._configuration["jwt:issuer"],
-                this._configuration["jwt:issuer"],
+            var token = new JwtSecurityToken(
+                this.configuration["jwt:issuer"],
+                this.configuration["jwt:issuer"],
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: credentials);
 

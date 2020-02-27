@@ -9,6 +9,9 @@ namespace Acme.Productivity.Pomodoro.Core
     using System.Linq;
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// Represent an authenticated user.
+    /// </summary>
     [DataContract]
     public class UserAuthentication
     {

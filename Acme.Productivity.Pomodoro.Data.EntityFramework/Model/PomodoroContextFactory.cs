@@ -7,6 +7,9 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
 
+    /// <summary>
+    /// The factory used in migrations.
+    /// </summary>
     public class PomodoroContextFactory : IDesignTimeDbContextFactory<PomodoroContext>
     {
         /// <inheritdoc />

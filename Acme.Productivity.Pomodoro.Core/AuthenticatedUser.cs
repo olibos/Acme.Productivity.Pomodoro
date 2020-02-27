@@ -7,6 +7,9 @@ namespace Acme.Productivity.Pomodoro.Core
     using System;
     using System.Text.Json.Serialization;
 
+    /// <summary>
+    /// Represent an authenticated user.
+    /// </summary>
     public class AuthenticatedUser
     {
         /// <summary>
