@@ -8,6 +8,7 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
     using System.Linq;
 
     using Acme.Productivity.Pomodoro.Core;
+    using Acme.Productivity.Pomodoro.Core.Tools;
     using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
 
     public class UserRepository : IUserRepository
@@ -22,6 +23,17 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
         public AuthenticatedUser Authenticate(string userName, string password)
         {
             var userDb = this._context.Users.SingleOrDefault(x => x.UserName == userName);
+
+            if (userDb == null)
+            {
+                userDb = new User();
+
+                userDb.Id = SecurityEngine.GenerateId();
+                userDb.UserName = userName;
+                userDb.Password = SecurityEngine.HashPassword(password);
+                this._context.Users.Add(userDb);
+                this._context.SaveChanges();
+            }
 
             return new AuthenticatedUser
             {
