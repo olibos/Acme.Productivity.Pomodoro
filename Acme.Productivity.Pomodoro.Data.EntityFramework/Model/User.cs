@@ -9,14 +9,16 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    [Table("Users", Schema = "dbo")]
+    [Table("Users")]
     public class User
     {
         /// <summary>
-        /// Gets or sets the Email.
+        /// Gets or sets the UserName.
         /// </summary>
-        /// <value>The Email.</value>
-        public string Email { get; set; }
+        /// <value>The UserName.</value>
+        [MaxLength(800)]
+        [Required]
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the Id.
@@ -30,6 +32,8 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         /// Gets or sets the Password.
         /// </summary>
         /// <value>The Password.</value>
+        [MaxLength(800)]
+        [Required]
         public string Password { get; set; }
     }
 }

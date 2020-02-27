@@ -21,7 +21,7 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework
 
         public AuthenticatedUser Authenticate(string userName, string password)
         {
-            var userDb = this._context.Users.SingleOrDefault(x => x.Email == userName);
+            var userDb = this._context.Users.SingleOrDefault(x => x.UserName == userName);
 
             return new AuthenticatedUser
             {

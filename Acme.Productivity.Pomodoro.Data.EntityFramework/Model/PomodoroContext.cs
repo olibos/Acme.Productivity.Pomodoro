@@ -20,5 +20,11 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         /// </summary>
         /// <value>The Users.</value>
         public DbSet<User> Users { get; set; }
+
+        /// <inheritdoc />
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex("UserName").IsUnique();
+        }
     }
 }
