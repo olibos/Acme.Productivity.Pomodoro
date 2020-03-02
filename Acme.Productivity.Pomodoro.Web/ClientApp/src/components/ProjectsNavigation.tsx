@@ -10,27 +10,27 @@ type ProjectsNavigationProps = ProjectsStore.ProjectsState &
 
 const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
 {
-    useEffect(() =>
+    const renderProjects = () =>
     {
-        props.refreshProjects();
-    });
+        return <ListGroup>
+            {props.projects.map((project) =>
+            {
+                return <ListGroupItem key={project.id}>{project.name}</ListGroupItem>;
+            })}
+        </ListGroup>;
+    };
 
     return <>
         <h2><Trans>projects:list:title</Trans></h2>
 
-        {props.projects.length == 0 && <div>
+        {props.projects.length === 0 && <div>
             <Alert color="info">
                 <Trans>projects:list:no-items</Trans>
             </Alert>
         </div>}
 
-        {props.projects.length}
+        {renderProjects()}
 
-        <ListGroup>
-            {props.projects.map((project) => {
-                return <ListGroupItem>{project.name}</ListGroupItem>
-            })}
-        </ListGroup>
     </>;
 };
 

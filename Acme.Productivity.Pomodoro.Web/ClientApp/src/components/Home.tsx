@@ -5,7 +5,7 @@ import ProjectsNavigation from './ProjectsNavigation';
 
 const Home = () => (
   <div>
-        <Col xs={4}>
+        <Col xs={3}>
             <ProjectsNavigation />
         </Col>
   </div>

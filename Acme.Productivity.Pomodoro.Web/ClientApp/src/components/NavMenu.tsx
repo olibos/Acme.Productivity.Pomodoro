@@ -17,7 +17,7 @@ const NavMenu: FC<NavMenuProps> = (props) =>
 
     useEffect(() => {
        props.recoverSession();
-    });
+    }, []);
 
     return (
         <header>

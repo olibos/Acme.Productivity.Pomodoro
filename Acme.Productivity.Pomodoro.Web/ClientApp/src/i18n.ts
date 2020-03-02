@@ -1,7 +1,5 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { Trans } from 'react-i18next';
-import * as React from 'react';
 
 i18n.use(LanguageDetector).init({
     resources: {

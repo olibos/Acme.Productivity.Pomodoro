@@ -76,8 +76,9 @@ export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined
     switch (action.type)
     {
         case 'PROJECTS_LOADED':
-            state.projects = action.projects;
-            break;
+            return {
+                projects: action.projects
+            };
     }
 
     return state;
