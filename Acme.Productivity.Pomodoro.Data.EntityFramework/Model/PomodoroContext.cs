@@ -40,6 +40,8 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
         {
             modelBuilder.Entity<User>().HasIndex("UserName").IsUnique();
             modelBuilder.Entity<Project>().HasIndex("UserId");
+
+            modelBuilder.Entity<Project>().HasIndex("IsDeleted");
         }
     }
 }

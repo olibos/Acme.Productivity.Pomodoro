@@ -9,7 +9,6 @@ namespace Acme.Productivity.Pomodoro.Web
     using System.Security.Cryptography;
     using System.Text;
 
-    using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Data;
     using Acme.Productivity.Pomodoro.Data.EntityFramework;
     using Acme.Productivity.Pomodoro.Data.EntityFramework.Model;
@@ -32,7 +31,7 @@ namespace Acme.Productivity.Pomodoro.Web
     public class Startup
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// Initializes a new instance of the <see cref="Startup" /> class.
         /// </summary>
         /// <param name="configuration">The configuration to use.</param>
         public Startup(IConfiguration configuration)
@@ -126,7 +125,6 @@ namespace Acme.Productivity.Pomodoro.Web
         /// <param name="services">The container.</param>
         private void AddDomains(IServiceCollection services)
         {
-            services.AddScoped<UserDomain>();
         }
 
         /// <summary>
@@ -138,6 +136,7 @@ namespace Acme.Productivity.Pomodoro.Web
             services.AddDbContext<PomodoroContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("PomodoroContext")));
             services.AddAutoMapper(typeof(ModelMapping));
 
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
     }

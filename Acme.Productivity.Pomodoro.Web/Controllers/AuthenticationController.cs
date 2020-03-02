@@ -5,14 +5,16 @@
 namespace Acme.Productivity.Pomodoro.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
+    using System.Security.Claims;
     using System.Security.Cryptography;
     using System.Text;
     using System.Threading.Tasks;
 
-    using Acme.Productivity.Pomodoro.Business;
     using Acme.Productivity.Pomodoro.Core;
+    using Acme.Productivity.Pomodoro.Data;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -26,16 +28,16 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IConfiguration configuration;
-        private readonly UserDomain userDomain;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthenticationController"/> class.
+        /// Initializes a new instance of the <see cref="AuthenticationController" /> class.
         /// </summary>
-        /// <param name="userDomain">The user domain to use.</param>
+        /// <param name="userRepository">The user domain to use.</param>
         /// <param name="configuration">The base configuration.</param>
-        public AuthenticationController(UserDomain userDomain, IConfiguration configuration)
+        public AuthenticationController(IUserRepository userRepository, IConfiguration configuration)
         {
-            this.userDomain = userDomain;
+            this.userRepository = userRepository;
             this.configuration = configuration;
         }
 
@@ -53,12 +55,16 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
                 return this.BadRequest();
             }
 
-            var user = await this.userDomain.AuthenticateAsync(authentication);
+            var user = await this.userRepository.AuthenticateAsync(authentication.UserName, authentication.Password);
 
             if (user == null)
             {
                 return this.Unauthorized();
             }
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Sid, user.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, user.Name));
 
             var keyBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(this.configuration["jwt:key"]), Encoding.UTF8.GetBytes(this.configuration["jwt:saltz"]), 4200);
             var key = new SymmetricSecurityKey(keyBytes.GetBytes(512 / 8));
@@ -67,7 +73,8 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
                 this.configuration["jwt:issuer"],
                 this.configuration["jwt:issuer"],
                 expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: credentials);
+                signingCredentials: credentials,
+                claims: claims);
 
             user.Bearer = new JwtSecurityTokenHandler().WriteToken(token);
 
