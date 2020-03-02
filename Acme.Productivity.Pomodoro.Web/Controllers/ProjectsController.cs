@@ -33,6 +33,49 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
         }
 
         /// <summary>
+        /// Create a new project.
+        /// </summary>
+        /// <param name="project">The information about the project.</param>
+        /// <returns>Ok if success.</returns>
+        [HttpPost]
+        [Route("api/projects")]
+        public ActionResult CreateProject(Project project)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            this.projectRepository.Add(this.UserId, project.Name);
+            return this.NoContent();
+        }
+
+        /// <summary>
+        /// Delete a project.
+        /// </summary>
+        /// <param name="projectId">The id of the project.</param>
+        /// <returns>Ok if ok :).</returns>
+        [HttpDelete]
+        [Route("api/project/{projectId}")]
+        public ActionResult Delete(Guid projectId)
+        {
+            this.projectRepository.Delete(this.UserId, projectId);
+            return this.NoContent();
+        }
+
+        /// <summary>
+        /// Get information about a project.
+        /// </summary>
+        /// <param name="projectId">The id of the project.</param>
+        /// <returns>The project.</returns>
+        [HttpGet]
+        [Route("api/project/{projectId}")]
+        public ActionResult<Project> Get(Guid projectId)
+        {
+            return this.projectRepository.Get(this.UserId, projectId);
+        }
+
+        /// <summary>
         /// Get all the projects.
         /// </summary>
         /// <returns>List of all projects associated to the current user.</returns>
@@ -41,6 +84,25 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
         public ActionResult<IEnumerable<Project>> GetAllProjects()
         {
             return this.projectRepository.GetAll(this.UserId);
+        }
+
+        /// <summary>
+        /// Delete a project.
+        /// </summary>
+        /// <param name="projectId">The id of the project.</param>
+        /// <param name="project">The information about the project.</param>
+        /// <returns>Ok if ok :).</returns>
+        [HttpPost]
+        [Route("api/project/{projectId}")]
+        public ActionResult Update(Guid projectId, Project project)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest();
+            }
+
+            this.projectRepository.Update(this.UserId, projectId, project.Name);
+            return this.NoContent();
         }
     }
 }
