@@ -14,15 +14,8 @@ namespace Acme.Productivity.Pomodoro.Data.EntityFramework.Model
     /// Table to store the users.
     /// </summary>
     [Table("Users")]
-    public class User
+    public class User : BaseTrackedModel
     {
-        /// <summary>
-        /// Gets or sets the Password.
-        /// </summary>
-        /// <value>The Password.</value>
-        [Required]
-        public DateTime CreationDate { get; set; }
-
         /// <summary>
         /// Gets or sets the Id.
         /// </summary>

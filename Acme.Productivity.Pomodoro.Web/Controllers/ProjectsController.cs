@@ -40,7 +40,7 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
         [Route("api/projects")]
         public ActionResult<IEnumerable<Project>> GetAllProjects()
         {
-            return this.projectRepository.GetUserProjects(this.UserId);
+            return this.projectRepository.GetAll(this.UserId);
         }
     }
 }
