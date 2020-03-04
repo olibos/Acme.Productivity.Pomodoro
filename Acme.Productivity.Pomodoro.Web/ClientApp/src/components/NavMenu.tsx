@@ -6,8 +6,8 @@ import * as CurrentUserStore from "../store/CurrentUser";
 import { connect } from "react-redux";
 import { ApplicationState } from "../store";
 import { Trans } from "react-i18next";
-import { FC, useEffect, useState } from "react";
-import { userAuthenticationDisconnected, userAuthenticationRecover } from '../store/Actions';
+import { FC, useState } from "react";
+import { userAuthenticationDisconnected } from '../store/Actions';
 
 type NavMenuProps = CurrentUserStore.UserState &
     NavMenuActions;
@@ -15,10 +15,6 @@ type NavMenuProps = CurrentUserStore.UserState &
 const NavMenu: FC<NavMenuProps> = (props) =>
 {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-
-    useEffect(() => {
-       props.userAuthenticationRecover();
-    }, []);
 
     return (
         <header>
@@ -49,12 +45,10 @@ const NavMenu: FC<NavMenuProps> = (props) =>
 
 interface NavMenuActions
 {
-    userAuthenticationRecover:() => void;
     userDisconnect:() => void;
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-    userAuthenticationRecover:() => dispatch(userAuthenticationRecover()),
     userDisconnect:() => dispatch(userAuthenticationDisconnected()),
 });
 

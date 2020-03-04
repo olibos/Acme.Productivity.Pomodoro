@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import * as ProjectsStore from '../store/Projects';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
