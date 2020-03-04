@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import * as CurrentUserStore from "../store/CurrentUser";
-import { connect } from "react-redux";
-import { ApplicationState } from "../store";
-import { Trans } from "react-i18next";
-import { FC, useState } from "react";
-import { userAuthenticationDisconnected } from '../store/Actions';
+import * as CurrentUserStore from '../reducers/currentUser';
+import { connect } from 'react-redux';
+import { Trans } from 'react-i18next';
+import { FC, useState } from 'react';
+import { userAuthenticationDisconnected } from '../sagas/actions';
+import { ApplicationState } from '../reducers';
 
 type NavMenuProps = CurrentUserStore.UserState &
     NavMenuActions;
@@ -45,11 +45,11 @@ const NavMenu: FC<NavMenuProps> = (props) =>
 
 interface NavMenuActions
 {
-    userDisconnect:() => void;
+    userDisconnect: () => void;
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-    userDisconnect:() => dispatch(userAuthenticationDisconnected()),
+    userDisconnect: () => dispatch(userAuthenticationDisconnected()),
 });
 
 export default connect(

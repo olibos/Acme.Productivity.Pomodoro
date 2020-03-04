@@ -1,5 +1,5 @@
 import { Action, Reducer } from 'redux';
-import { actionIds, BaseAction } from './Actions';
+import { actionIds, BaseAction } from '../sagas/actions';
 
 // State linked to the store
 export interface UserState

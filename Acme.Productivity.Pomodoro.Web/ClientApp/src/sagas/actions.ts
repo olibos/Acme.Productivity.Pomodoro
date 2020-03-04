@@ -1,9 +1,14 @@
+import { Projects } from '../reducers/projects';
+
 export const actionIds = {
-    USER_AUTHENTICATION_RECOVER: '[AUTH-000] The user want to authenticate with existing bearer.',
-    USER_AUTHENTICATION_START: '[AUTH-001] The user want to authenticate.',
-    USER_AUTHENTICATION_SUCCESS: '[AUTH-002] The user is authenticated.',
-    USER_AUTHENTICATION_FAILED: '[AUTH-003] The authentication failed.',
-    USER_AUTHENTICATION_DISCONNECTED: '[AUTH-004] The user has been disconnected.',
+    USER_AUTHENTICATION_RECOVER: 'USER_AUTHENTICATION_RECOVER',
+    USER_AUTHENTICATION_START: 'USER_AUTHENTICATION_START',
+    USER_AUTHENTICATION_SUCCESS: 'USER_AUTHENTICATION_SUCCESS',
+    USER_AUTHENTICATION_FAILED: 'USER_AUTHENTICATION_FAILED',
+    USER_AUTHENTICATION_DISCONNECTED: 'USER_AUTHENTICATION_DISCONNECTED',
+
+    PROJECTS_REFRESH_START: 'PROJECTS_REFRESH_START',
+    PROJECTS_REFRESH_SUCCESS: 'PROJECTS_REFRESH_SUCCESS',
 };
 
 export interface BaseAction {
@@ -44,4 +49,14 @@ export const userAuthenticationFailed = (): BaseAction => ({
 export const userAuthenticationDisconnected = (): BaseAction => ({
     type: actionIds.USER_AUTHENTICATION_DISCONNECTED,
     payload: null,
+});
+
+export const projectRefreshStart = (): BaseAction => ({
+    type: actionIds.PROJECTS_REFRESH_START,
+    payload: null,
+});
+
+export const projectRefreshSuccess = (projects:  Projects[]): BaseAction => ({
+    type: actionIds.PROJECTS_REFRESH_SUCCESS,
+    payload: projects,
 });

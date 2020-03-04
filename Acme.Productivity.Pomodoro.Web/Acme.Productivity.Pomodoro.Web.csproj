@@ -35,9 +35,5 @@
       <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="ClientApp\src\common" />
-    </ItemGroup>
-
 
 </Project>

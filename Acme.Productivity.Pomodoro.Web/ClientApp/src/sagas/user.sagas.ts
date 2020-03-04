@@ -4,8 +4,8 @@ import {
     userAuthenticationDisconnected,
     userAuthenticationFailed,
     userAuthenticationSuccess,
-} from '../store/Actions';
-import { authenticateUser, recoverSession } from '../services/UserService';
+} from './actions';
+import { authenticateUser, recoverSession } from '../services/userService';
 import { Security } from '../utils/Security';
 import { history } from '../index';
 

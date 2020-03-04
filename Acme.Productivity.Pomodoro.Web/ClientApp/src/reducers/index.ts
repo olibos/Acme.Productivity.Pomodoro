@@ -1,5 +1,5 @@
-import * as CurrentUser from './CurrentUser';
-import * as Projects from './Projects';
+import * as CurrentUser from './currentUser';
+import * as Projects from './projects';
 
 // The top-level state object
 export interface ApplicationState {
@@ -14,9 +14,3 @@ export const reducers = {
     currentUser: CurrentUser.reducer,
     projects: Projects.reducer
 };
-
-// This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are
-// correctly typed to match your store.
-export interface AppThunkAction<TAction> {
-    (dispatch: (action: TAction) => void, getState: () => ApplicationState): void;
-}

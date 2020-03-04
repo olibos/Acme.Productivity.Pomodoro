@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
-import * as ProjectsStore from '../store/Projects';
+import * as ProjectsStore from '../reducers/projects';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../store';
 import { Trans } from 'react-i18next';
 import { Alert, ListGroup, ListGroupItem } from 'reactstrap';
+import { ApplicationState } from '../reducers';
 
-type ProjectsNavigationProps = ProjectsStore.ProjectsState &
-    typeof ProjectsStore.actionCreators;
+type ProjectsNavigationProps = ProjectsStore.ProjectsState;
 
 const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
 {
@@ -34,7 +33,14 @@ const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
     </>;
 };
 
+interface ComponentActions
+{
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+});
+
 export default connect(
     (state: ApplicationState) => state.projects,
-    ProjectsStore.actionCreators,
+    mapDispatchToProps
 )(ProjectsNavigation as any);

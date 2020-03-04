@@ -2,9 +2,9 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
-import { ApplicationState, reducers } from './';
 import { reducer as formReducer } from 'redux-form';
-import { rootSaga } from '../sagas';
+import { rootSaga } from './sagas';
+import { ApplicationState, reducers } from './reducers';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
 

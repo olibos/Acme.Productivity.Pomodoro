@@ -1,8 +1,6 @@
-import * as CurrentUserStore from '../store/CurrentUser';
 import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ApplicationState } from '../store';
 import { Button, Col, FormGroup, Row } from 'reactstrap';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +9,9 @@ import ReduxFormInput from './shared/ReduxFormInput';
 import * as Yup from 'yup';
 import ReduxYupValidator from './shared/ReduxYupValidator';
 import jsSha512 from 'js-sha512';
-import { userAuthenticationStart } from '../store/Actions';
+import { ApplicationState } from '../reducers';
+import { userAuthenticationStart } from '../sagas/actions';
+import * as CurrentUserStore from '../reducers/currentUser';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
