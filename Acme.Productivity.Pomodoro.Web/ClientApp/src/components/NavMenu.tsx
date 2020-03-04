@@ -7,16 +7,17 @@ import { connect } from "react-redux";
 import { ApplicationState } from "../store";
 import { Trans } from "react-i18next";
 import { FC, useEffect, useState } from "react";
+import { userAuthenticationDisconnected, userAuthenticationRecover } from '../store/Actions';
 
 type NavMenuProps = CurrentUserStore.UserState &
-    typeof CurrentUserStore.actionCreators;
+    NavMenuActions;
 
 const NavMenu: FC<NavMenuProps> = (props) =>
 {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
-       props.recoverSession();
+       props.userAuthenticationRecover();
     }, []);
 
     return (
@@ -35,7 +36,7 @@ const NavMenu: FC<NavMenuProps> = (props) =>
 
                             {props.isConnected &&
                             <NavItem>
-                                <NavLink href="#" onClick={() => props.logout()}><Trans>Logout</Trans></NavLink>
+                                <NavLink href="#" onClick={() => props.userDisconnect()}><Trans>Logout</Trans></NavLink>
                             </NavItem>
                             }
                         </ul>
@@ -46,7 +47,18 @@ const NavMenu: FC<NavMenuProps> = (props) =>
     );
 };
 
+interface NavMenuActions
+{
+    userAuthenticationRecover:() => void;
+    userDisconnect:() => void;
+}
+
+const mapDispatchToProps = (dispatch: any) => ({
+    userAuthenticationRecover:() => dispatch(userAuthenticationRecover()),
+    userDisconnect:() => dispatch(userAuthenticationDisconnected()),
+});
+
 export default connect(
     (state: ApplicationState) => state.currentUser,
-    CurrentUserStore.actionCreators,
+    mapDispatchToProps,
 )(NavMenu as any);
