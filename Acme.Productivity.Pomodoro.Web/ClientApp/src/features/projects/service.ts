@@ -1,4 +1,4 @@
-import { Projects } from './models';
+import { Projects } from './types';
 import { get } from '../ajax';
 
 export const getProjects = (): Promise<Projects[]> =>

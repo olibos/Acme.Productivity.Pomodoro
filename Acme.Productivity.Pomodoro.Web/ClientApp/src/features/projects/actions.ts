@@ -1,5 +1,5 @@
 import { BaseAction } from '../actions';
-import { Projects } from './models';
+import { Projects } from './types';
 
 export const projectActions = {
     PROJECTS_REFRESH_START: 'PROJECTS_REFRESH_START',

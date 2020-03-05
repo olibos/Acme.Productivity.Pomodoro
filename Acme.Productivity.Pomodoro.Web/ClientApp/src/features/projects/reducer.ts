@@ -1,6 +1,6 @@
 import { Action, Reducer } from 'redux';
 import { BaseAction } from '../actions';
-import { Projects } from './models';
+import { Projects } from './types';
 import { projectActions } from './actions';
 
 export interface ProjectsState
