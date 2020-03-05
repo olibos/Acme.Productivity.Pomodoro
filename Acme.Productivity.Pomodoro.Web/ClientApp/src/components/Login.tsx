@@ -1,6 +1,5 @@
-import { RouteComponentProps } from 'react-router';
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Button, Col, FormGroup, Row } from 'reactstrap';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +10,6 @@ import ReduxYupValidator from './shared/ReduxYupValidator';
 import jsSha512 from 'js-sha512';
 import { ApplicationState } from '../features/reducers';
 import { userAuthenticationStart } from '../features/user/actions';
-import { UserState } from '../features/user/reducer';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
@@ -47,17 +45,25 @@ const ReduxLoginForm = reduxForm({
     asyncValidate: ReduxYupValidator(schema),
 })(LoginForm as any);
 
-type LoginProps =
-    UserState &
-    LoginActions &
-    RouteComponentProps<{}>;
+const mapStateToProps = (state: ApplicationState) => ({
+    user: state.user,
+});
 
-const Login: FC<LoginProps> = (props) =>
+const mapDispatchToProps =
+    {
+        userAuthenticationStart,
+    };
+
+type Props =
+    ReturnType<typeof mapStateToProps> &
+    typeof mapDispatchToProps;
+
+const Login: FC<Props> = (props) =>
 {
     const submit = (values: any) =>
     {
         const hash = jsSha512.sha512(values.password);
-        props.login(values.email, hash);
+        props.userAuthenticationStart(values.email, hash);
     };
 
     return <>
@@ -69,17 +75,7 @@ const Login: FC<LoginProps> = (props) =>
     </>;
 };
 
-interface LoginActions
-{
-    login: (username: string, password: string) => void;
-    userDisconnect: () => void;
-}
-
-const mapDispatchToProps = (dispatch: any) => ({
-    login: (username: string, password: string) => dispatch(userAuthenticationStart(username, password)),
-});
-
 export default connect(
-    (state: ApplicationState) => state.user,
-    mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps
 )(Login as any);

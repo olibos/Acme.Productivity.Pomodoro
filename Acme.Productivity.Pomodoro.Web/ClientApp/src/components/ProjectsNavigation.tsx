@@ -3,11 +3,20 @@ import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { Alert, ListGroup, ListGroupItem } from 'reactstrap';
 import { ApplicationState } from '../features/reducers';
-import { ProjectsState } from '../features/projects/reducer';
 
-type ProjectsNavigationProps = ProjectsState;
+const mapStateToProps = (state: ApplicationState) => ({
+    projects: state.projects.projects
+});
 
-const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
+const mapDispatchToProps =
+    {
+    };
+
+type Props =
+    ReturnType<typeof mapStateToProps> &
+    typeof mapDispatchToProps;
+
+const ProjectsNavigation: FC<Props> = (props) =>
 {
     const renderProjects = () =>
     {
@@ -33,14 +42,7 @@ const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
     </>;
 };
 
-interface ComponentActions
-{
-}
-
-const mapDispatchToProps = (dispatch: any) => ({
-});
-
 export default connect(
-    (state: ApplicationState) => state.projects,
+    mapStateToProps,
     mapDispatchToProps
 )(ProjectsNavigation as any);

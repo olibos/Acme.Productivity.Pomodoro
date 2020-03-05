@@ -5,14 +5,23 @@ import './NavMenu.css';
 import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { FC, useState } from 'react';
-import { UserState } from '../features/user/reducer';
 import { userAuthenticationDisconnected } from '../features/user/actions';
 import { ApplicationState } from '../features/reducers';
 
-type NavMenuProps = UserState &
-    NavMenuActions;
+const mapStateToProps = (state: ApplicationState) => ({
+    user: state.user
+});
 
-const NavMenu: FC<NavMenuProps> = (props) =>
+const mapDispatchToProps =
+{
+    userAuthenticationDisconnected
+};
+
+type Props =
+    ReturnType<typeof mapStateToProps> &
+    typeof mapDispatchToProps;
+
+const NavMenu: FC<Props> = (props) =>
 {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -30,9 +39,9 @@ const NavMenu: FC<NavMenuProps> = (props) =>
                                 <NavLink tag={Link} className="text-dark" to="/"><Trans>Home</Trans></NavLink>
                             </NavItem>
 
-                            {props.isConnected &&
+                            {props.user.isConnected &&
                             <NavItem>
-                                <NavLink href="#" onClick={() => props.userDisconnect()}><Trans>Logout</Trans></NavLink>
+                                <NavLink href="#" onClick={props.userAuthenticationDisconnected}><Trans>Logout</Trans></NavLink>
                             </NavItem>
                             }
                         </ul>
@@ -43,16 +52,7 @@ const NavMenu: FC<NavMenuProps> = (props) =>
     );
 };
 
-interface NavMenuActions
-{
-    userDisconnect: () => void;
-}
-
-const mapDispatchToProps = (dispatch: any) => ({
-    userDisconnect: () => dispatch(userAuthenticationDisconnected()),
-});
-
 export default connect(
-    (state: ApplicationState) => state.user,
-    mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps
 )(NavMenu as any);
