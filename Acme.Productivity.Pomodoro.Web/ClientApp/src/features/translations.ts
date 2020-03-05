@@ -29,6 +29,10 @@ i18n.use(LanguageDetector).init({
                             'title': 'Vos projets',
                             'no-items': 'Vous n\'avez pas encore de projets.'
                         },
+                    new:
+                        {
+                            'title': 'Ajouter un nouveau projet'
+                        }
                 },
         },
     },

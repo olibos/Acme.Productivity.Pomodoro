@@ -7,12 +7,14 @@ export interface ProjectsState
 {
     projects: Project[];
     current: Project | null;
+    currentEditing: Project | null;
 }
 
 // Default state and reducer to change the state when action is done
 const unloadedState: ProjectsState = {
     projects: [],
-    current: null
+    current: null,
+    currentEditing: null,
 };
 
 export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined, incomingAction: Action): ProjectsState =>
@@ -27,10 +29,25 @@ export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined
     switch (action.type)
     {
         case projectActions.PROJECTS_REFRESH_SUCCESS:
-            return {...state, projects: action.payload };
+            return {...state, projects: action.payload};
 
         case projectActions.PROJECTS_SELECTION_CHANGE:
-            return {...state, current: action.payload };
+            return {...state, current: action.payload};
+
+        case projectActions.PROJECTS_EDIT_START:
+            return {...state, currentEditing: action.payload};
+
+        case projectActions.PROJECTS_EDIT_START_NEW:
+            return {
+                ...state,
+                currentEditing: {
+                    id: '',
+                    name: '',
+                },
+            };
+
+        case projectActions.PROJECTS_EDIT_END:
+            return {...state, currentEditing: null};
     }
 
     return state;

@@ -5,8 +5,8 @@ import './NavMenu.css';
 import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { FC, useState } from 'react';
-import { userAuthenticationDisconnected } from '../features/user/actions';
-import { ApplicationState } from '../features/reducers';
+import { userAuthenticationDisconnected } from '../../features/user/actions';
+import { ApplicationState } from '../../features/reducers';
 
 const mapStateToProps = (state: ApplicationState) => ({
     user: state.user

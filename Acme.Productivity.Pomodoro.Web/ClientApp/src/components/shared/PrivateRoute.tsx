@@ -1,6 +1,6 @@
+import * as React from "react";
 import { Redirect, Route } from "react-router";
-import React from "react";
-import { isLogged } from '../features/security';
+import { isLogged } from '../../features/security';
 
 export const PrivateRoute = ({component, ...rest}: any) =>
 {
