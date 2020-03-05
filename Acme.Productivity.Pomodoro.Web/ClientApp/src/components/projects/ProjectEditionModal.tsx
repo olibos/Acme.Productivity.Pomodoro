@@ -21,10 +21,14 @@ type Props =
 
 const ProjectEditionModal: FC<Props> = (props) =>
 {
-    return <>
-        <Modal isOpen={props.projects.currentEditing != null} toggle={props.projectEditEnd}>
-            <ModalHeader toggle={props.projectEditEnd}><Trans>projects:new:title</Trans></ModalHeader>
-        </Modal>
+    return <> {props.projects.currentEditing != null &&
+    <Modal isOpen={props.projects.currentEditing != null} toggle={props.projectEditEnd}>
+        <ModalHeader toggle={props.projectEditEnd}>
+            {props.projects.currentEditing.id === '' && <Trans>projects:new:title</Trans>}
+            {props.projects.currentEditing.id !== '' && <Trans>projects:edit:title</Trans>}
+        </ModalHeader>
+    </Modal>
+    }
     </>;
 };
 

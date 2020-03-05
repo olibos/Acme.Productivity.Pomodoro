@@ -32,7 +32,11 @@ i18n.use(LanguageDetector).init({
                     new:
                         {
                             'title': 'Ajouter un nouveau projet'
-                        }
+                        },
+                    edit:
+                        {
+                            'title': 'Editer un projet'
+                        },
                 },
         },
     },
