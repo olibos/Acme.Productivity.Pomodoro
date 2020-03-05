@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { Alert, ListGroup, ListGroupItem } from 'reactstrap';
 import { ApplicationState } from '../features/reducers';
+import { projectSelectionChange } from '../features/projects/actions';
 
 const mapStateToProps = (state: ApplicationState) => ({
-    projects: state.projects.projects
+    projects: state.projects,
 });
 
 const mapDispatchToProps =
     {
+        projectSelectionChange,
     };
 
 type Props =
@@ -21,9 +23,13 @@ const ProjectsNavigation: FC<Props> = (props) =>
     const renderProjects = () =>
     {
         return <ListGroup>
-            {props.projects.map((project) =>
+            {props.projects.projects.map((project) =>
             {
-                return <ListGroupItem key={project.id}>{project.name}</ListGroupItem>;
+                return <ListGroupItem key={project.id}
+                                      color={props.projects.current && props.projects.current.id === project.id ? "primary" : ""}
+                                      onClick={() => props.projectSelectionChange(project)}>
+                    {project.name}
+                </ListGroupItem>;
             })}
         </ListGroup>;
     };
@@ -31,7 +37,7 @@ const ProjectsNavigation: FC<Props> = (props) =>
     return <>
         <h2><Trans>projects:list:title</Trans></h2>
 
-        {props.projects.length === 0 && <div>
+        {props.projects.projects.length === 0 && <div>
             <Alert color="info">
                 <Trans>projects:list:no-items</Trans>
             </Alert>
@@ -44,5 +50,5 @@ const ProjectsNavigation: FC<Props> = (props) =>
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
-)(ProjectsNavigation as any);
+    mapDispatchToProps,
+)(ProjectsNavigation);

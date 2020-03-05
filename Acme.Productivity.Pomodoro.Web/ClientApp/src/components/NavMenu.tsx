@@ -55,4 +55,4 @@ const NavMenu: FC<Props> = (props) =>
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NavMenu as any);
+)(NavMenu);

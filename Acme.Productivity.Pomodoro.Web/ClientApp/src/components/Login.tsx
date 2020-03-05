@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Button, Col, FormGroup, Row } from 'reactstrap';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -78,4 +78,4 @@ const Login: FC<Props> = (props) =>
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login as any);
+)(Login);

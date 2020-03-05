@@ -1,9 +1,9 @@
-import { Projects } from './types';
+import { Project } from './types';
 import { get } from '../ajax';
 
-export const getProjects = (): Promise<Projects[]> =>
+export const getProjects = (): Promise<Project[]> =>
 {
-    return get<Projects[]>('/api/projects').then((data) =>
+    return get<Project[]>('/api/projects').then((data) =>
     {
         return data;
     });
