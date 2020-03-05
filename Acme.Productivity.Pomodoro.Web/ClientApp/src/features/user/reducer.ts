@@ -1,5 +1,6 @@
 import { Action, Reducer } from 'redux';
-import { actionIds, BaseAction } from '../sagas/actions';
+import { BaseAction } from '../actions';
+import { userActions } from './actions';
 
 // State linked to the store
 export interface UserState
@@ -21,11 +22,11 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
 
     switch (action.type)
     {
-        case actionIds.USER_AUTHENTICATION_SUCCESS :
+        case userActions.USER_AUTHENTICATION_SUCCESS :
             return {
                 isConnected: true,
             };
-        case actionIds.USER_AUTHENTICATION_DISCONNECTED:
+        case userActions.USER_AUTHENTICATION_DISCONNECTED:
             return unloadedState;
     }
 

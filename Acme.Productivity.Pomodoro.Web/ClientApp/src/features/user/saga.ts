@@ -1,33 +1,35 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
+
 import {
-    actionIds, BaseAction,
+    userActions,
     userAuthenticationDisconnected,
     userAuthenticationFailed,
     userAuthenticationSuccess,
 } from './actions';
-import { authenticateUser, recoverSession } from '../services/userService';
-import { Security } from '../utils/Security';
-import { history } from '../index';
+
+import { BaseAction } from '../actions';
+import { authenticateUser, connectUser, disconnectUser, recoverSession } from './service';
+import { getToken } from '../security';
 
 export function* manageAuthentication()
 {
     yield takeLatest(
-        actionIds.USER_AUTHENTICATION_RECOVER,
+        userActions.USER_AUTHENTICATION_RECOVER,
         recoverUserAuthentication,
     );
 
     yield takeLatest(
-        actionIds.USER_AUTHENTICATION_DISCONNECTED,
+        userActions.USER_AUTHENTICATION_DISCONNECTED,
         disconnectUser,
     );
 
     yield takeLatest(
-        actionIds.USER_AUTHENTICATION_START,
+        userActions.USER_AUTHENTICATION_START,
         userAuthenticationStart,
     );
 
     yield takeLatest(
-        actionIds.USER_AUTHENTICATION_SUCCESS,
+        userActions.USER_AUTHENTICATION_SUCCESS,
         connectUser
     )
 }
@@ -47,7 +49,7 @@ export function* userAuthenticationStart(action: BaseAction)
 
 export function* recoverUserAuthentication()
 {
-    const bearer = Security.getToken();
+    const bearer = getToken();
 
     if (!bearer)
     {
@@ -58,22 +60,10 @@ export function* recoverUserAuthentication()
     const recovered = yield call(recoverSession);
     if (recovered)
     {
-        yield put(userAuthenticationSuccess(Security.getToken()));
+        yield put(userAuthenticationSuccess(getToken()));
     }
     else
     {
         yield put(userAuthenticationDisconnected());
     }
-}
-
-export function disconnectUser()
-{
-    Security.logout();
-    history.push('/login');
-}
-
-export function connectUser(action: BaseAction)
-{
-    Security.saveToken(action.payload.bearer);
-    history.push('/');
 }

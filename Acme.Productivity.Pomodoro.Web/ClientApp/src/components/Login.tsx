@@ -9,9 +9,9 @@ import ReduxFormInput from './shared/ReduxFormInput';
 import * as Yup from 'yup';
 import ReduxYupValidator from './shared/ReduxYupValidator';
 import jsSha512 from 'js-sha512';
-import { ApplicationState } from '../reducers';
-import { userAuthenticationStart } from '../sagas/actions';
-import * as CurrentUserStore from '../reducers/currentUser';
+import { ApplicationState } from '../features/reducers';
+import { userAuthenticationStart } from '../features/user/actions';
+import { UserState } from '../features/user/reducer';
 
 const LoginForm: FC<InjectedFormProps<{}, {}>> = (props) =>
 {
@@ -48,7 +48,7 @@ const ReduxLoginForm = reduxForm({
 })(LoginForm as any);
 
 type LoginProps =
-    CurrentUserStore.UserState &
+    UserState &
     LoginActions &
     RouteComponentProps<{}>;
 
@@ -80,6 +80,6 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 export default connect(
-    (state: ApplicationState) => state.currentUser,
+    (state: ApplicationState) => state.user,
     mapDispatchToProps,
 )(Login as any);

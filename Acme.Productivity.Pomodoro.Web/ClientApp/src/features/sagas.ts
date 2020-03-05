@@ -1,7 +1,7 @@
 import { all, fork, put } from 'redux-saga/effects';
-import { manageAuthentication } from './user.sagas';
-import { manageProjects } from './projects.sagas';
-import { userAuthenticationRecover } from './actions';
+import { userAuthenticationRecover } from './user/actions';
+import { manageAuthentication } from './user/saga';
+import { manageProjects } from './projects/saga';
 
 function* initialSaga()
 {

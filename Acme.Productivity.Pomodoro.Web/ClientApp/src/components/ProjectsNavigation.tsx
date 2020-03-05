@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import * as ProjectsStore from '../reducers/projects';
 import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { Alert, ListGroup, ListGroupItem } from 'reactstrap';
-import { ApplicationState } from '../reducers';
+import { ApplicationState } from '../features/reducers';
+import { ProjectsState } from '../features/projects/reducer';
 
-type ProjectsNavigationProps = ProjectsStore.ProjectsState;
+type ProjectsNavigationProps = ProjectsState;
 
 const ProjectsNavigation: FC<ProjectsNavigationProps> = (props) =>
 {

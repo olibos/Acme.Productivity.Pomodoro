@@ -1,11 +1,7 @@
 import { Action, Reducer } from 'redux';
-import { actionIds, BaseAction } from '../sagas/actions';
-
-export interface Projects
-{
-    id: string;
-    name: string;
-}
+import { BaseAction } from '../actions';
+import { Projects } from './models';
+import { projectActions } from './actions';
 
 export interface ProjectsState
 {
@@ -26,7 +22,7 @@ export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined
 
     switch (action.type)
     {
-        case actionIds.PROJECTS_REFRESH_SUCCESS:
+        case projectActions.PROJECTS_REFRESH_SUCCESS:
             return {
                 projects: action.payload
             };
