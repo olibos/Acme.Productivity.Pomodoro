@@ -2,9 +2,10 @@ import * as React from 'react';
 import { FC } from 'react';
 import { connect } from 'react-redux';
 import { Trans } from 'react-i18next';
-import { Alert, Button, ListGroup, ListGroupItem } from 'reactstrap';
+import { Alert, Button, ListGroup } from 'reactstrap';
 import { ApplicationState } from '../../features/reducers';
-import { projectEditStartNew, projectSelectionChange } from '../../features/projects/actions';
+import { projectEditStartNew } from '../../features/projects/actions';
+import ProjectsNavigationItem from './ProjectsNavigationItem';
 
 const mapStateToProps = (state: ApplicationState) => ({
     projects: state.projects,
@@ -12,7 +13,6 @@ const mapStateToProps = (state: ApplicationState) => ({
 
 const mapDispatchToProps =
     {
-        projectSelectionChange,
         projectEditStartNew
     };
 
@@ -28,11 +28,7 @@ const ProjectsNavigation: FC<Props> = (props) =>
             <ListGroup>
                 {props.projects.projects.map((project) =>
                 {
-                    return <ListGroupItem key={project.id}
-                                          color={props.projects.current && props.projects.current.id === project.id ? 'primary' : ''}
-                                          onClick={() => props.projectSelectionChange(project)}>
-                        {project.name}
-                    </ListGroupItem>;
+                    return <ProjectsNavigationItem key={project.id} project={project}/>;
                 })}
             </ListGroup>
             <Button onClick={props.projectEditStartNew} className="w-100 mt-3">Ajouter</Button>
