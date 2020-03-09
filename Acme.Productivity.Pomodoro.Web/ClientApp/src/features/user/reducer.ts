@@ -18,7 +18,7 @@ export const reducer: Reducer<UserState> = (state: UserState | undefined, incomi
         return unloadedState;
     }
 
-    const action = incomingAction as BaseAction;
+    const action = incomingAction as BaseAction<any>;
 
     switch (action.type)
     {

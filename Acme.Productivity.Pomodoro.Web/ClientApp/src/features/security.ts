@@ -1,7 +1,13 @@
 const TOKEN_KEY = 'auth';
 
-export const saveToken = (token: string) : void =>
+export const saveToken = (token: string | null) : void =>
 {
+    if (token === null)
+    {
+        logout();
+        return
+    }
+
     localStorage.setItem(TOKEN_KEY, token);
 };
 

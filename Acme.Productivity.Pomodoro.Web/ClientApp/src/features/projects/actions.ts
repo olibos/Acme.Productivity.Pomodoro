@@ -7,25 +7,36 @@ export const projectActions = {
     PROJECTS_SELECTION_CHANGE: '@@projects/PROJECTS_SELECTION_CHANGE',
     PROJECTS_EDIT_START: '@@projects/PROJECTS_EDIT_START',
     PROJECTS_EDIT_START_NEW: '@@projects/PROJECTS_EDIT_START_NEW',
+    PROJECTS_EDIT_SAVE: '@@projects/PROJECTS_EDIT_SAVE',
     PROJECTS_EDIT_END: '@@projects/PROJECTS_EDIT_END',
 };
 
-export const projectRefreshSuccess = (projects:  Project[]): BaseAction => ({
+export const projectsRefreshStart = (): BaseAction<null> => ({
+    type: projectActions.PROJECTS_REFRESH_START,
+    payload: null,
+});
+
+export const projectRefreshSuccess = (projects:  Project[]): BaseAction<Project[]> => ({
     type: projectActions.PROJECTS_REFRESH_SUCCESS,
     payload: projects,
 });
 
-export const projectSelectionChange = (project: Project): BaseAction => ({
+export const projectSelectionChange = (project: Project): BaseAction<Project> => ({
     type: projectActions.PROJECTS_SELECTION_CHANGE,
     payload: project
 });
 
-export const projectEditStartNew = (): BaseAction => ({
+export const projectEditStartNew = (): BaseAction<null> => ({
     type: projectActions.PROJECTS_EDIT_START_NEW,
     payload: null,
 });
 
-export const projectEditEnd = (): BaseAction => ({
+export const projectEditSave = (project: Project): BaseAction<Project> => ({
+    type: projectActions.PROJECTS_EDIT_SAVE,
+    payload: project,
+});
+
+export const projectEditEnd = (): BaseAction<null> => ({
     type: projectActions.PROJECTS_EDIT_END,
     payload: null,
 });

@@ -1,4 +1,5 @@
 import { BaseAction } from '../actions';
+import { IUserAuthentication, IUserBearer } from './types';
 
 export const userActions = {
     USER_AUTHENTICATION_RECOVER: '@@user/USER_AUTHENTICATION_RECOVER',
@@ -8,7 +9,7 @@ export const userActions = {
     USER_AUTHENTICATION_DISCONNECTED: '@@user/USER_AUTHENTICATION_DISCONNECTED'
 };
 
-export const userAuthenticationRecover = (): BaseAction => ({
+export const userAuthenticationRecover = (): BaseAction<null> => ({
     type: userActions.USER_AUTHENTICATION_RECOVER,
     payload: null,
 });
@@ -16,7 +17,7 @@ export const userAuthenticationRecover = (): BaseAction => ({
 export const userAuthenticationStart = (
     username: string,
     password: string
-): BaseAction => ({
+): BaseAction<IUserAuthentication> => ({
     type: userActions.USER_AUTHENTICATION_START,
     payload: {
         username,
@@ -26,19 +27,19 @@ export const userAuthenticationStart = (
 
 export const userAuthenticationSuccess = (
     bearer: string | null,
-): BaseAction => ({
+): BaseAction<IUserBearer> => ({
     type: userActions.USER_AUTHENTICATION_SUCCESS,
     payload: {
         bearer
     },
 });
 
-export const userAuthenticationFailed = (): BaseAction => ({
+export const userAuthenticationFailed = (): BaseAction<null> => ({
     type: userActions.USER_AUTHENTICATION_FAILED,
     payload: null,
 });
 
-export const userAuthenticationDisconnected = (): BaseAction => ({
+export const userAuthenticationDisconnected = (): BaseAction<null> => ({
     type: userActions.USER_AUTHENTICATION_DISCONNECTED,
     payload: null,
 });

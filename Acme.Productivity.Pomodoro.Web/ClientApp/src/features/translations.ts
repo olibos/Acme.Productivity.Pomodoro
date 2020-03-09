@@ -12,6 +12,9 @@ i18n.use(LanguageDetector).init({
                 },
             forms:
                 {
+                    projects: {
+                        'name': 'Nom du projet'
+                    },
                     'Email address': 'Adresse e-mail',
                     'Enter email': 'Entrez votre adresse e-mail',
                     'Password': 'Mot de passe',

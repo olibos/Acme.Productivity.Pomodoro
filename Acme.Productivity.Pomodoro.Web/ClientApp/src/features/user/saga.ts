@@ -34,7 +34,7 @@ export function* manageAuthentication()
     )
 }
 
-export function* userAuthenticationStart(action: BaseAction)
+export function* userAuthenticationStart(action: BaseAction<any>)
 {
     const bearer = yield call(authenticateUser, action.payload.username, action.payload.password);
     if (bearer)

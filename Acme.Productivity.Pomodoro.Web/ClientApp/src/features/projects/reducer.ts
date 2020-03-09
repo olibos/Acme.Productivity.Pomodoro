@@ -24,7 +24,7 @@ export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined
         return unloadedState;
     }
 
-    const action = incomingAction as BaseAction;
+    const action = incomingAction as BaseAction<any>;
 
     switch (action.type)
     {

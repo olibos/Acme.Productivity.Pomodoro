@@ -87,7 +87,7 @@ namespace Acme.Productivity.Pomodoro.Web.Controllers
         }
 
         /// <summary>
-        /// Delete a project.
+        /// Update a project.
         /// </summary>
         /// <param name="projectId">The id of the project.</param>
         /// <param name="project">The information about the project.</param>

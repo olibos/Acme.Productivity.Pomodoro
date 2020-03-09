@@ -2,6 +2,7 @@ import { get, post } from '../ajax';
 import { logout, saveToken } from '../security';
 import { history } from '../../index';
 import { BaseAction } from '../actions';
+import { IUserBearer } from './types';
 
 export const recoverSession = (): Promise<boolean> =>
 {
@@ -35,7 +36,7 @@ export const disconnectUser = () =>
     history.push('/login');
 };
 
-export const connectUser = (action: BaseAction) =>
+export const connectUser = (action: BaseAction<IUserBearer>) =>
 {
     saveToken(action.payload.bearer);
     history.push('/');
