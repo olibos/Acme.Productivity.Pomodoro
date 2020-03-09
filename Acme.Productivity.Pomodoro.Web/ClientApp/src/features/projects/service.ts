@@ -14,5 +14,5 @@ export const createProject= (project: Project): Promise<any> =>
 
 export const updateProject= (project: Project): Promise<any> =>
 {
-    return post<Project, any>('/api/projects/' + project.id, project);
+    return post<Project, any>('/api/project/' + project.id, project);
 };

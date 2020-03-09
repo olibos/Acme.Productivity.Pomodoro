@@ -29,7 +29,14 @@ export const reducer: Reducer<ProjectsState> = (state: ProjectsState | undefined
     switch (action.type)
     {
         case projectActions.PROJECTS_REFRESH_SUCCESS:
-            return {...state, projects: action.payload};
+
+            let current = state.current;
+            if (state.current != null)
+            {
+                current = action.payload.find((e: Project) => state.current != null && e.id === state.current.id);
+            }
+
+            return {...state, projects: action.payload, current: current};
 
         case projectActions.PROJECTS_SELECTION_CHANGE:
             return {...state, current: action.payload};

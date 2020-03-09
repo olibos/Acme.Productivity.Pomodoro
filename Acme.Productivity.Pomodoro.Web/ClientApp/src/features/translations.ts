@@ -38,6 +38,7 @@ i18n.use(LanguageDetector).init({
                         },
                     edit:
                         {
+                            'edit': 'Editer',
                             'title': 'Editer un projet'
                         },
                 },

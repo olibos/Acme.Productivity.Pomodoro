@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FC } from 'react';
 import { connect } from 'react-redux';
-import { Button, Col, ListGroupItem, NavLink, Row } from 'reactstrap';
+import { ListGroupItem, NavLink} from 'reactstrap';
 import { ApplicationState } from '../../features/reducers';
 import { projectSelectionChange } from '../../features/projects/actions';
 import { Project } from '../../features/projects/types';
@@ -28,8 +28,7 @@ const ProjectsNavigationItem: FC<Props> = (props) =>
                           color={props.projects.current && props.projects.current.id === props.project.id ? 'primary' : ''}
                           onClick={() => props.projectSelectionChange(props.project)} tag={NavLink} href="#">
                 {props.project.name}
-    </ListGroupItem>
-        ;
+    </ListGroupItem>;
 };
 
 export default connect(

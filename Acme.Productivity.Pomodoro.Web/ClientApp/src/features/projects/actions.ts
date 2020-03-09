@@ -31,6 +31,11 @@ export const projectEditStartNew = (): BaseAction<null> => ({
     payload: null,
 });
 
+export const projectEditStart = (project: Project | null): BaseAction<Project | null> => ({
+    type: projectActions.PROJECTS_EDIT_START,
+    payload: project,
+});
+
 export const projectEditSave = (project: Project): BaseAction<Project> => ({
     type: projectActions.PROJECTS_EDIT_SAVE,
     payload: project,
